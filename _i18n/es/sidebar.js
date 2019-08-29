@@ -1,5 +1,5 @@
 export default {
-  adminGroup : 'Productos',
+  adminGroup : 'Suscripciones',
   adminProducts : 'Lista de Productos',
   adminProductsCreate : 'Crear Producto',
   adminProductsUpdate : 'Actualizar Producto',

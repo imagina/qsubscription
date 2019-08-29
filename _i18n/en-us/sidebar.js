@@ -1,8 +1,8 @@
 export default {
-  adminGroup : 'Places',
-  adminPlaces : 'Places List',
-  adminPlacesCreate : 'Create Place',
-  adminPlacesUpdate : 'Update Place',
-  adminCategories : 'Place Categories',
+  adminGroup : 'Subscriptions',
+  adminProducts : 'Products List',
+  adminProductsCreate : 'Create Product',
+  adminProductsUpdate : 'Update Product',
+  adminCategories : 'Product Categories',
   adminSchedules : 'Schedules',
 }

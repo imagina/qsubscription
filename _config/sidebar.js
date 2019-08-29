@@ -3,12 +3,12 @@ const pages = config('pages') // Get Pages from config
 //Suscriptions
 export default [
   {
-    title: 'qsuscription.sidebar.adminGroup',
+    title: 'qsubscription.sidebar.adminGroup',
     icon: 'fas fa-map-marked-alt',
     children: [
-      pages.qsuscription.products, // products setup
-      pages.qsuscription.features, // features setup
-      pages.qsuscription.plans, // plans setup
+      pages.qsubscription.products, // products setup
+      //pages.qsubscription.features, // features setup
+      //pages.qsubscription.plans, // plans setup
     ]
   },
 ]

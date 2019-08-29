@@ -1,5 +1,5 @@
-import layout from '@imagina/qsuscription/_i18n/en-us/layout'
-import sidebar from '@imagina/qsuscription/_i18n/en-us/sidebar'
+import layout from '@imagina/qsubscription/_i18n/en-us/layout'
+import sidebar from '@imagina/qsubscription/_i18n/en-us/sidebar'
 
 export default {
   layout,

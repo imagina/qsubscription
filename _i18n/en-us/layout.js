@@ -1,6 +1,6 @@
 export default {
-  newPlace : 'New Place',
-  updatePlace : 'Update Place',
+  newProduct : 'New Product',
+  updateProduct : 'Update Product',
   newCategory : 'New Category',
   updateCategory : 'Update Category',
   form : {

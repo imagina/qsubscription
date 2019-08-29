@@ -1,7 +1,7 @@
 <template>
   <div id="pageId">
     <!---Component CRUD-->
-    <crud :crud-data="import('@imagina/qsuscription/_crud/products')"/>
+    <crud :crud-data="import('@imagina/qsubscription/_crud/products')"/>
   </div>
 </template>
 <script>

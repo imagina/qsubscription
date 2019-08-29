@@ -7,10 +7,10 @@
     computed: {
       crudData() {
         return {
-          apiRoute: 'apiRoutes.qsuscription.products',
+          apiRoute: 'apiRoutes.qsubscription.products',
           permission: 'suscriptions.products',
           create: {
-            title: this.$tr('qsuscription.layout.newProduct'),
+            title: this.$tr('qsubscription.layout.newProduct'),
           },
           read: {
             columns: [
@@ -25,7 +25,7 @@
             requestParams: {include: 'parent'}
           },
           update: {
-            title: this.$tr('qsuscription.layout.updateProduct'),
+            title: this.$tr('qsubscription.layout.updateProduct'),
             requestParams: {}
           },
           delete: true,
