@@ -4,9 +4,13 @@ export default {
   newPlan : 'Nuevo plan',
   updatePlan : 'Actualizar Plan',
   form : {
-    fromDay : 'Desde el día',
-    untilDay : 'Hasta el día',
-    fromTime : 'Desde la hora',
-    untilTime : 'Hasta la hora',
+    code : 'Código',
+    recommendation : 'Recomendación',
+    display_order : 'Orden de Visualización',
+    free : 'Gratis',
+    visible : 'Visible',
+    price : 'Precio',
+    frequency : 'Frecuencia',
+    bill_cycle : 'Ciclo de facturación',
   }
 }
