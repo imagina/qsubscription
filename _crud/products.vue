@@ -23,7 +23,14 @@
               },
               {name: 'actions', label: this.$tr('ui.form.actions'), align: 'left'},
             ],
-            requestParams: {}
+            requestParams: {},
+            actions : [
+              {
+                icon : 'fas fa-location-arrow',
+                color : 'warning',
+                route : 'qsubscription.admin.plans.index'
+              }
+            ]
           },
           update: {
             title: this.$tr('qsubscription.layout.updateProduct'),

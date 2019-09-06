@@ -43,7 +43,7 @@ export default {
   plans: {
     permission: 'suscriptions.plans.manage',
     activated: true,
-    path: '/suscriptions/plans/index',
+    path: '/suscriptions/plans/index/:id',
     name: 'qsubscription.admin.plans.index',
     layout: require('@imagina/qsubscription/_layouts/admin/plans/index').default,
     containerLayout: master,

@@ -11,6 +11,12 @@ export default {
     visible : 'Visible',
     price : 'Precio',
     frequency : 'Frecuencia',
-    bill_cycle : 'Ciclo de facturación',
+    bill_cycle : "Cada",
+    bill_cycles : {
+      years : "Año(s)",
+      months : "Mes(es)",
+      weeks : "Semana(s)"
+    },
+    trial_period : "Período de prueba",
   }
 }

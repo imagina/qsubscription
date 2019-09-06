@@ -34,6 +34,7 @@
           delete: true,
           formLeft: {
             id: {value: ''},
+            productId: {value: this.$route.params.id},
             name: {
               label: this.$tr('ui.form.name'),
               value: '',
@@ -48,19 +49,24 @@
               isRequired: false,
               isTranslatable: true,
             },
-            price: {
-              label: this.$tr('qsubscription.layout.form.price'),
-              value: 1,
-              type: 'number',
-              isRequired: true,
-              isTranslatable: false,
-            },
+
             frequency: {
               label: this.$tr('qsubscription.layout.form.frequency'),
               value: 1,
               type: 'number',
               isRequired: true,
               isTranslatable: false,
+            },
+
+            bill_cycle: {
+              label: this.$tr('qsubscription.layout.form.bill_cycle'),
+              value: 'week',
+              type: 'select',
+              options: [
+                {label: this.$tr('qsubscription.layout.form.bill_cycles.weeks'), id: 'week'},
+                {label: this.$tr('qsubscription.layout.form.bill_cycles.months'), id: 'month'},
+                {label: this.$tr('qsubscription.layout.form.bill_cycles.years'), id: 'year'},
+              ],
             },
 
           },
@@ -116,13 +122,22 @@
               isTranslatable: true,
             },
 
-            bill_cycle: {
-              label: this.$tr('qsubscription.layout.form.bill_cycle'),
+            price: {
+              label: this.$tr('qsubscription.layout.form.price'),
               value: 1,
               type: 'number',
               isRequired: true,
               isTranslatable: false,
             },
+
+            trial_period: {
+              label: this.$tr('qsubscription.layout.form.trial_period'),
+              value: 1,
+              type: 'number',
+              isRequired: true,
+              isTranslatable: false,
+            },
+
 
           },
         }
