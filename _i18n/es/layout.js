@@ -3,6 +3,8 @@ export default {
   updateProduct : 'Actualizar producto',
   newPlan : 'Nuevo plan',
   updatePlan : 'Actualizar Plan',
+  newFeature : 'Nueva característica',
+  updateFeature : 'Actualizar característica',
   form : {
     code : 'Código',
     recommendation : 'Recomendación',
@@ -18,5 +20,13 @@ export default {
       weeks : "Semana(s)"
     },
     trial_period : "Período de prueba",
+    caption:"Subtítulo",
+    type:"Tipo",
+    types : {
+      text : "Texto",
+      quantity : "Cantidad",
+      boolean : "Booleano"
+    },
+    unit:"Unidad",
   }
 }

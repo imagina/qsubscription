@@ -73,5 +73,38 @@ export default {
     icon: 'fas fa-map-marked-alt',
     middleware: [auth,access]
   },
+  features: {
+    permission: 'suscriptions.features.manage',
+    activated: true,
+    path: '/suscriptions/features/index/:id',
+    name: 'qsubscription.admin.features.index',
+    layout: require('@imagina/qsubscription/_layouts/admin/features/index').default,
+    containerLayout: master,
+    title: 'qsubscription.sidebar.adminFeatures',
+    icon: 'fas fa-layer-group',
+    middleware: [auth,access]
+  },
+    featuresCreate: {
+    permission: 'suscriptions.features.create',
+    activated: true,
+    path: '/suscriptions/features/create',
+    name: 'qsubscription.admin.features.create',
+    layout: require('@imagina/qsubscription/_layouts/admin/features/form').default,
+    containerLayout: master,
+    title: 'qsubscription.sidebar.adminFeaturesCreate',
+    icon: 'fas fa-layer-group',
+    middleware: [auth,access]
+  },
+  featuresUpdate: {
+    permission: 'suscriptions.features.edit',
+    activated: true,
+    path: '/suscriptions/features/:id',
+    name: 'qsubscription.admin.features.edit',
+    layout: require('@imagina/qsubscription/_layouts/admin/features/form').default,
+    containerLayout: master,
+    title: 'qsubscription.sidebar.adminFeaturesUpdate',
+    icon: 'fas fa-map-marked-alt',
+    middleware: [auth,access]
+  },
 
 }

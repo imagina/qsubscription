@@ -7,11 +7,11 @@
     computed: {
       crudData() {
         return {
-          apiRoute: 'apiRoutes.qsubscription.products',
-          permission: 'suscriptions.products',
+          apiRoute: 'apiRoutes.qsubscription.features',
+          permission: 'suscriptions.features',
           create: {
-            title: this.$tr('qsubscription.layout.newProduct'),
-            to: 'qsubscription.admin.products.create',
+            title: this.$tr('qsubscription.layout.newFeature'),
+            // to: 'qsubscription.admin.features.create',
           },
           read: {
             columns: [
@@ -23,31 +23,31 @@
               },
               {name: 'actions', label: this.$tr('ui.form.actions'), align: 'left'},
             ],
-            requestParams: {},
-            actions : [
-              {
-                icon : 'fas fa-location-arrow',
-                color : 'warning',
-                route : 'qsubscription.admin.plans.index'
+            requestParams: {
+              filter:{
+                productId: this.$route.params.id
               },
-              {
-                icon : 'fas fa-stream',
-                color : 'info',
-                route : 'qsubscription.admin.features.index'
-              },
-            ]
+              include:'product'
+            }
           },
           update: {
-            title: this.$tr('qsubscription.layout.updateProduct'),
-            to: 'qsubscription.admin.products.edit',
+            title: this.$tr('qsubscription.layout.updateFeature'),
+            // to: 'qsubscription.admin.features.edit',
             requestParams: {}
           },
           delete: true,
           formLeft: {
             id: {value: ''},
-            userId: {value: this.$store.state.quserAuth.userId},
+            productId: {value: this.$route.params.id},
             name: {
               label: this.$tr('ui.form.name'),
+              value: '',
+              type: 'text',
+              isRequired: true,
+              isTranslatable: true,
+            },
+            caption: {
+              label: this.$tr('qsubscription.layout.form.caption'),
               value: '',
               type: 'text',
               isRequired: true,
@@ -72,6 +72,25 @@
                 {label: this.$tr('ui.label.enabled'), id: '1'},
                 {label: this.$tr('ui.label.disabled'), id: '0'},
               ],
+            },
+
+            type: {
+              label: this.$tr('qsubscription.layout.form.type'),
+              value: 1,
+              type: 'select',
+              options: [
+                {label: this.$tr('qsubscription.layout.form.types.quantity'), id: 0},
+                {label: this.$tr('qsubscription.layout.form.types.text'), id: 1},
+                {label: this.$tr('qsubscription.layout.form.types.boolean'), id: 2},
+              ],
+            },
+
+            unit: {
+              label: this.$tr('qsubscription.layout.form.unit'),
+              value: '',
+              type: 'text',
+              isRequired: false,
+              isTranslatable: false,
             },
 
           },

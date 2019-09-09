@@ -17,14 +17,19 @@
             columns: [
               {name: 'id', label: this.$tr('ui.form.id'), field: 'id', style: 'width: 50px'},
               {name: 'name', label: this.$tr('ui.form.name'), field: 'name', align: 'rigth'},
-              {name: 'code', label: this.$tr('ui.form.code'), field: 'code', align: 'rigth'},
+              {name: 'code', label: this.$tr('qsubscription.layout.form.code'), field: 'code', align: 'rigth'},
               {
                 name: 'created_at', label: this.$tr('ui.form.createdAt'), field: 'createdAt', align: 'left',
                 format: val => val ? this.$trd(val) : '-',
               },
               {name: 'actions', label: this.$tr('ui.form.actions'), align: 'left'},
             ],
-            requestParams: {}
+            requestParams: {
+              filter:{
+                productId: this.$route.params.id
+              },
+              include:'product'
+            }
           },
           update: {
             title: this.$tr('qsubscription.layout.updatePlan'),
@@ -58,7 +63,7 @@
               isTranslatable: false,
             },
 
-            bill_cycle: {
+            billCycle: {
               label: this.$tr('qsubscription.layout.form.bill_cycle'),
               value: 'week',
               type: 'select',
@@ -87,15 +92,15 @@
               value: '',
               type: 'text',
               isRequired: false,
-              isTranslatable: true,
+              isTranslatable: false,
             },
 
-            display_order: {
+            displayOrder: {
               label: this.$tr('qsubscription.layout.form.display_order'),
               value: '',
               type: 'text',
               isRequired: false,
-              isTranslatable: true,
+              isTranslatable: false,
             },
 
             free: {
@@ -103,7 +108,7 @@
               value: '',
               type: 'checkbox',
               isRequired: false,
-              isTranslatable: true,
+              isTranslatable: false,
             },
 
             recommendation: {
@@ -111,7 +116,7 @@
               value: '',
               type: 'checkbox',
               isRequired: false,
-              isTranslatable: true,
+              isTranslatable: false,
             },
 
             visible: {
@@ -119,7 +124,7 @@
               value: '',
               type: 'checkbox',
               isRequired: false,
-              isTranslatable: true,
+              isTranslatable: false,
             },
 
             price: {
@@ -130,7 +135,7 @@
               isTranslatable: false,
             },
 
-            trial_period: {
+            trialPeriod: {
               label: this.$tr('qsubscription.layout.form.trial_period'),
               value: 1,
               type: 'number',

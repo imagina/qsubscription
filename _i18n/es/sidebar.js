@@ -9,4 +9,7 @@ export default {
   adminPlans : 'Planes de Productos',
   adminPlansCreate : 'Crear Plan',
   adminPlansUpdate : 'Actualizar Plan',
+  adminFeatures : 'Características de Productos',
+  adminFeaturesCreate : 'Crear Característica',
+  adminFeaturesUpdate : 'Actualizar Característica',
 }
