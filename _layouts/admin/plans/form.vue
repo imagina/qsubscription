@@ -31,6 +31,24 @@
               <q-editor v-model="locale.formTemplate.description" :toolbar="editorText.toolbar"/>
             </q-field>
 
+            <!--frequency-->
+            <q-field>
+              <q-input :stack-label="`${$tr('qsubscription.layout.form.frequency')} (${locale.language}) *`"
+                       type="number" v-model="locale.formTemplate.frequency"/>
+            </q-field>
+
+            <!--BillCyles-->
+             <q-field>
+               <div class="input-title">{{`${$tr('qsubscription.layout.form.bill_cycle')}`}}</div>
+               <tree-select
+                 :clearable="false"
+                 :options="optionsFields.billCycles"
+                 value-consists-of="BRANCH_PRIORITY"
+                 v-model="locale.formTemplate.billCycle"
+                 placeholder=""
+               />
+             </q-field>
+
           </div>
 
           <!---Form Right-->
@@ -48,14 +66,26 @@
               />
             </q-field>
 
-            <!--name-->
-            <q-field
-              :error="$v.locale.formTemplate.code.$error"
-              :error-label="$tr('ui.message.fieldRequired')"
-            >
-              <q-input :stack-label="`${$tr('ui.form.code')} (${locale.language}) *`"
+            <!--code-->
+            <q-field>
+              <q-input :stack-label="`${$tr('qsubscription.layout.form.code')} (${locale.language}) *`"
                        type="text" v-model="locale.formTemplate.code"/>
             </q-field>
+
+            <!--displayOrder-->
+            <q-field>
+              <q-input :stack-label="`${$tr('qsubscription.layout.form.display_order')} (${locale.language}) *`"
+                       type="number" v-model="locale.formTemplate.displayOrder"/>
+            </q-field>
+
+            <div class="input-title">{{`${$tr('qsubscription.layout.form.features')}`}}</div>
+            <q-select
+               multiple
+               v-model="locale.formTemplate.features"
+               :options="featuresOptions"
+             />
+
+
 
           </div>
 
@@ -123,12 +153,16 @@
         },
         configName: 'apiRoutes.qsubscription.plans',
         itemId: false,
+        featuresOptions:[],
         locale: {
           fields: {
             id: '',
             userId: this.$store.state.quserAuth.userId,
             status: 0,
             code: "",
+            frequency: "",
+            billCycle: "week",
+            features: [],
           },
           fieldsTranslatable: {
             name: '',
@@ -167,6 +201,11 @@
             {label: this.$tr('ui.label.enabled'), id: 1},
             {label: this.$tr('ui.label.disabled'), id: 0}
           ],
+          billCycles: [
+            {label: this.$tr('qsubscription.layout.form.bill_cycles.weeks'), id: 'week', value: 'week'},
+            {label: this.$tr('qsubscription.layout.form.bill_cycles.months'), id: 'month', value: 'month'},
+            {label: this.$tr('qsubscription.layout.form.bill_cycles.years'), id: 'year', value: 'year'},
+          ],
           btn: {
             saveAndReturn: this.$tr('ui.message.saveAndReturn'),
             saveAndCreate: this.$tr('ui.message.saveAndCreate'),
@@ -195,12 +234,17 @@
             let params = {
               refresh: true,
               params: {
-                include: '',
+                include: 'features',
                 filter: {allTranslations: true}
               }
             }
             //Request
             this.$crud.show(this.configName, itemId, params).then(response => {
+              if(response.data.features.length>0){
+                for(var i=0;i<response.data.features.length;i++){
+                  response.data.features[i]=response.data.features[i].id;
+                }//for
+              }
               this.locale.form = this.$clone(response.data);
               this.loading.page = false;
               resolve(true)//Resolve
@@ -208,6 +252,12 @@
               this.$alert.error({message: this.$tr('ui.message.errorRequest'), pos: 'bottom'})
               this.loading.page = false
               reject(false)//Resolve
+            })
+            //Request
+            this.$crud.index("apiRoutes.qsubscription.features").then(response => {
+              for(var i=0;i<response.data.length;i++){
+                this.featuresOptions.push({label: response.data[i].name , id: response.data[i].id, value: response.data[i].id})
+              }
             })
           } else {
             resolve(true)//Resolve
@@ -245,7 +295,10 @@
           let action = this.buttonActions.value
           switch (action) {
             case 1://redirect to index plans
-              this.$router.push({name: 'qsubscription.admin.plans.index'})
+              this.$router.push({
+                name: 'qsubscription.admin.plans.index',
+                params:{ id : 4}
+              })
               break;
             case 3://Reset and init form
               this.$refs.localeComponent.vReset()
@@ -262,7 +315,8 @@
           this.loading.page = true
           this.$crud.update(this.configName, this.itemId, this.locale.form).then(response => {
             this.$alert.success({message: `${this.$tr('ui.message.recordUpdated')}`})
-            this.$router.push({name: 'qsubscription.admin.plans.index'})//Redirect to index
+            this.$router.push({name: 'qsubscription.admin.plans.index',
+            params:{ id : 4}})//Redirect to index
             this.loading.page = false
           }).catch(error => {
             this.loading.page = false

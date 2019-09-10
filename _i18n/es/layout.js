@@ -5,7 +5,9 @@ export default {
   updatePlan : 'Actualizar Plan',
   newFeature : 'Nueva característica',
   updateFeature : 'Actualizar característica',
+  goProducts : 'Ir al listado de productos',
   form : {
+    features : 'Características',
     code : 'Código',
     recommendation : 'Recomendación',
     display_order : 'Orden de Visualización',

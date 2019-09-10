@@ -33,7 +33,7 @@
           },
           update: {
             title: this.$tr('qsubscription.layout.updatePlan'),
-            // to: 'qsubscription.admin.plans.edit',
+            to: 'qsubscription.admin.plans.edit',
             requestParams: {}
           },
           delete: true,
