@@ -3,6 +3,10 @@ export default {
   adminProducts : 'Products List',
   adminProductsCreate : 'Create Product',
   adminProductsUpdate : 'Update Product',
-  adminCategories : 'Product Categories',
-  adminSchedules : 'Schedules',
+  adminFeatures : 'Product features',
+  adminFeaturesCreate : 'Create feature',
+  adminFeaturesUpdate : 'Update feature',
+  adminPlans : 'Product plans',
+  adminPlansCreate : 'Create plan',
+  adminPlansUpdate : 'Update plan',
 }

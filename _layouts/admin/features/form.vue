@@ -264,7 +264,8 @@
           this.loading.page = true
           this.$crud.update(this.configName, this.itemId, this.locale.form).then(response => {
             this.$alert.success({message: `${this.$tr('ui.message.recordUpdated')}`})
-            this.$router.push({name: 'qsubscription.admin.features.index'})//Redirect to index
+            // this.$router.push({name: 'qsubscription.admin.features.index'})//Redirect to index
+            this.$router.go(-1);
             this.loading.page = false
           }).catch(error => {
             this.loading.page = false

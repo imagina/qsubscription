@@ -16,8 +16,8 @@
           read: {
             columns: [
               {name: 'id', label: this.$tr('ui.form.id'), field: 'id', style: 'width: 50px'},
-              {name: 'name', label: this.$tr('ui.form.name'), field: 'name', align: 'rigth'},
-              {name: 'code', label: this.$tr('qsubscription.layout.form.code'), field: 'code', align: 'rigth'},
+              {name: 'name', label: this.$tr('ui.form.name'), field: 'name', align: 'center'},
+              {name: 'code', label: this.$tr('qsubscription.layout.form.code'), field: 'code', align: 'center'},
               {
                 name: 'created_at', label: this.$tr('ui.form.createdAt'), field: 'createdAt', align: 'left',
                 format: val => val ? this.$trd(val) : '-',

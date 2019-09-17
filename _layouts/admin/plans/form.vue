@@ -160,6 +160,9 @@
             userId: this.$store.state.quserAuth.userId,
             status: 0,
             code: "",
+            free: false,
+            visible: false,
+            displayOrder: "",
             frequency: "",
             billCycle: "week",
             features: [],
@@ -297,7 +300,7 @@
             case 1://redirect to index plans
               this.$router.push({
                 name: 'qsubscription.admin.plans.index',
-                params:{ id : 4}
+                params:{ id : this.$route.params.id}
               })
               break;
             case 3://Reset and init form
@@ -315,8 +318,9 @@
           this.loading.page = true
           this.$crud.update(this.configName, this.itemId, this.locale.form).then(response => {
             this.$alert.success({message: `${this.$tr('ui.message.recordUpdated')}`})
-            this.$router.push({name: 'qsubscription.admin.plans.index',
-            params:{ id : 4}})//Redirect to index
+            // this.$router.push({name: 'qsubscription.admin.products.index',
+            // params:{ id : 4}})//Redirect to index
+            this.$router.go(-1);
             this.loading.page = false
           }).catch(error => {
             this.loading.page = false
