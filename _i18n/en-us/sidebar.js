@@ -10,5 +10,6 @@ export default {
   adminPlansCreate : 'Create plan',
   adminPlansUpdate : 'Update plan',
   plans:"Plans",
-  products:"Products"
+  products:"Products",
+  checkout : 'Checkout',
 }

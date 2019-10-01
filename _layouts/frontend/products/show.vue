@@ -128,6 +128,9 @@ export default {
     this.$nextTick(function () {
       this.productId=this.$route.params.id;
       this.getProduct();
+      console.log('this $store state quserAuth: ');
+      console.log(this.$store.state.quserAuth);
+      // console.log(this.userId);
     })
   },
   data() {
@@ -149,6 +152,7 @@ export default {
       locale: {
         fields: {
           id: '',
+          userId: this.$store.state.quserAuth.userId,
 
         },
         fieldsTranslatable: {
@@ -186,6 +190,7 @@ export default {
       this.loading.page = true;
       if(this.userId){
         //push to checkout
+        this.$router.push({ name: 'subscriptions.checkout', params: { planId: planId }});
       }else{
         this.minimizedModal = true
       }

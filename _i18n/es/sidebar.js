@@ -11,4 +11,5 @@ export default {
   adminPlansUpdate : 'Actualizar Plan',
   plans : 'Planes',
   products : 'Productos',
+  checkout : 'Finalizar compra',
 }
