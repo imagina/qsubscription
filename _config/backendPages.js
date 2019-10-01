@@ -1,5 +1,5 @@
 //Layout container
-import master from 'src/layouts/admin/admin'
+import master from 'src/layouts/master'
 
 //Middleware
 import auth from '@imagina/quser/_router/middlewares/auth'
