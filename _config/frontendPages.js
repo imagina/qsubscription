@@ -28,5 +28,16 @@ export default {
     icon: 'fas fa-layer-group',
     // middleware: [auth,access]
   },
+  checkout2: {
+    permission: null,
+    activated: true,
+    path: 'subscriptions/checkout2',
+    name: 'subscriptions.checkout2',
+    layout: require('@imagina/qsubscription/_layouts/frontend/checkout/index2').default,
+    containerLayout: master,
+    title: 'qsubscription.sidebar.checkout',
+    icon: 'fas fa-layer-group',
+    // middleware: [auth,access]
+  },
 
 }

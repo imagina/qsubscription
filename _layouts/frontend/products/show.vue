@@ -19,7 +19,14 @@
 
               <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 q-my-sm"  v-for="plan in product.plans">
 
-                <q-card style="border-radius: 10px;">
+                <!--
+                Styles gradient
+                border-top: 10px solid transparent; -moz-border-image: -moz-linear-gradient(left, rgba(248,80,50,1) 0%, rgba(252,26,98,1) 0%, rgba(241,111,92,1) 52%, rgba(246,41,12,1) 52%, rgba(246,41,12,1) 52%, rgba(241,111,92,1) 52%, rgba(240,47,23,1) 90%, rgba(240,47,23,1) 91%);
+                -webkit-border-image: -webkit-linear-gradient(left, rgba(248,80,50,1) 0%, rgba(252,26,98,1) 0%, rgba(241,111,92,1) 52%, rgba(246,41,12,1) 52%, rgba(246,41,12,1) 52%, rgba(241,111,92,1) 52%, rgba(240,47,23,1) 90%, rgba(240,47,23,1) 91%);
+                border-image: linear-gradient(to right, rgba(248,80,50,1) 0%, rgba(252,26,98,1) 0%, rgba(241,111,92,1) 52%, rgba(246,41,12,1) 52%, rgba(246,41,12,1) 52%, rgba(241,111,92,1) 52%, rgba(240,47,23,1) 90%, rgba(240,47,23,1) 91%);
+                border-image-slice: 1;
+              -->
+                <q-card style="border-radius: 10px; ">
                   <q-card-title class="q-ml-sm">
                     <span class="text-primary">{{plan.name}}</span>
                     <span slot="subtitle">
@@ -37,9 +44,13 @@
                     </ul>
 
                     <div class="row">
+                      <!-- LEFT SIDE -->
                       <div class="col-6 text-center bg-primary text-white">
-                        {{plan.price}} - {{plan.frequency}} {{plan.billCycleText}}
+                        <span class="">
+                          {{plan.price}} - {{plan.frequency}} {{plan.billCycleText}}
+                        </span>
                       </div>
+                      <!-- RIGHT SIDE -->
                       <div class="col-6 text-center bg-primary text-white" style="border-left:1px solid #dee2e6!important">
                         <q-btn
                         :loading="loading.page"
@@ -130,7 +141,7 @@ export default {
       this.getProduct();
       console.log('this $store state quserAuth: ');
       console.log(this.$store.state.quserAuth);
-      // console.log(this.userId);
+      console.log(this.userId);
     })
   },
   data() {
@@ -213,7 +224,6 @@ export default {
 
           //Request
           this.$crud.show("apiRoutes.qsubscription.products",this.productId,params).then(response => {
-            console.log(response.data);
             this.product=response.data;
             this.loading.page = false;
             resolve(true)//Resolve
