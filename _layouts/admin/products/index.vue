@@ -37,8 +37,7 @@ import schedulesForm from 'src/components/master/schedules'
     },
     mounted() {
       this.$nextTick(function () {
-        console.log(this.locale.fields.userId);
-        console.log('dsdasdad');
+        // console.log(this.locale.fields.userId);
       })
     },
     data() {

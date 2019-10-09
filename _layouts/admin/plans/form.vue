@@ -85,6 +85,20 @@
                :options="featuresOptions"
              />
 
+             <hr>
+
+             <!-- Free -->
+             <q-checkbox v-model="locale.formTemplate.free" :label="$tr('qsubscription.layout.form.free')" />
+             <!-- Visible -->
+             <q-checkbox v-model="locale.formTemplate.visible" :label="$tr('qsubscription.layout.form.visible')" />
+             <!-- Recommendation -->
+             <q-checkbox v-model="locale.formTemplate.recommendation" :label="$tr('qsubscription.layout.form.recommendation')" />
+
+             <!--Price-->
+             <q-field>
+               <q-input :stack-label="`${$tr('qsubscription.layout.form.price')} (${locale.language}) *`"
+                        type="number" v-model="locale.formTemplate.price"/>
+             </q-field>
 
 
           </div>
@@ -158,10 +172,12 @@
           fields: {
             id: '',
             userId: this.$store.state.quserAuth.userId,
+            recommendation: 0,
+            price: 0,
             status: 0,
-            code: "",
             free: false,
             visible: false,
+            code: "",
             displayOrder: "",
             frequency: "",
             billCycle: "week",

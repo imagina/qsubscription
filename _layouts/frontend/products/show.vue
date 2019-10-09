@@ -7,7 +7,7 @@
           <div class="col-12 text-center q-my-lg">
 
             <h4 class="font-family-secondary text-tertiary">{{product.name}}</h4>
-            <p class="text-weight-medium">{{product.description}}</p>
+            <p class="text-weight-medium" v-html="product.description"></p>
 
             <h4 class="title-arrow-line-tertiary font-family-secondary">
               {{product.name}}
