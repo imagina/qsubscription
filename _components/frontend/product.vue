@@ -136,14 +136,10 @@
             filter: {allTranslations: true}
           }
         }
-        console.log("test component");
-        console.log(this.productId);
 
         //Request
         await this.$crud.show("apiRoutes.qsubscription.products",this.productId,params).then(response => {
           this.product=response.data;
-          console.log("adsadada");
-          console.log(response.data);
           this.loading.page = false;
         }).catch(error => {
           this.$alert.error({message: this.$tr('ui.message.errorRequest'), pos: 'bottom'})

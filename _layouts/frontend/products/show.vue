@@ -189,6 +189,7 @@ export default {
     subscribe(planId){
       console.log('Subscribe, planId: '+planId);
       this.loading.page = true;
+      this.$router.push({ name: 'subscriptions.checkout', params: { planId: planId }});
       if(this.userId){
         //push to checkout
         this.$router.push({ name: 'subscriptions.checkout', params: { planId: planId }});
@@ -216,7 +217,6 @@ export default {
           this.$crud.show("apiRoutes.qsubscription.products",this.productId,params).then(response => {
             this.product=response.data;
             this.loading.page = false;
-            console.log(response.data);
             resolve(true)//Resolve
           }).catch(error => {
             this.$alert.error({message: this.$tr('ui.message.errorRequest'), pos: 'bottom'})

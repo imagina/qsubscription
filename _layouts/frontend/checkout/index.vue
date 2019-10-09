@@ -9,7 +9,7 @@
         <!-- LEFT SIDE -->
         <div class="col-sm-7 q-mt-sm q-mb-sm">
 
-          <div class="row">
+          <div class="row" v-if="plan">
 
             <!-- Shopping cart -->
             <div class="col-12 q-mt-sm q-mb-sm">
@@ -21,27 +21,34 @@
 
                   <div class="row q-my-md">
                     <div class="col-sm-2 border">
-                      <img src="https://enred-group.imaginacolombia.com/assets/media/product/3.jpg" class=" q-mx-sm" style="max-width:96%;height:auto;">
+                      <img src="/assets/img/plan-oro.png" class=" q-mx-sm" style="max-width:96%;height:auto;">
                     </div>
                     <div class="col-4">
-                      <p class="text-primary q-mt-sm q-mx-sm q-title">Plan plata</p>
-                      <p class="q-mx-sm">Atractivo e interesante</p>
-                      <p class="q-my-md q-mx-sm text-primary">$000.000</p>
-                      <p class="q-mx-sm">Enviado y Vendido por Lorem Ipsum</p>
+                      <p class="text-primary q-mt-sm q-mx-sm q-title">{{plan.name}}</p>
+                      <p class="q-mx-sm">{{plan.description}}</p>
+                      <p class="q-mx-sm">{{plan.frequency}} {{plan.billCycleText}}</p>
+                      <p class="q-my-md q-mx-sm text-primary">$ {{plan.price}}</p>
                     </div>
-                    <div class="col-3 text-center">
+                    <div class="col-6 text-center">
+                      <span class="q-title">{{$tr('qsubscription.layout.form.features')}}</span>
+                      <div class="list-plan q-subheading q-mt-sm" v-if="index<5" v-for="(feature,index) in plan.features">
+                        <i class="fas fa-check text-primary q-pr-md"></i>
+                        {{feature.name}}
+                      </div>
+                    </div>
+                    <!-- <div class="col-3 text-center">
                       <q-select
                       class="q-title"
                       float-label="Cantidad"
                       v-model="quantity"
                       :options="selectOptions"
                       />
-                    </div>
-                    <div class="col-3 text-center">
+                    </div> -->
+                    <!-- <div class="col-3 text-center">
                       <q-btn class="q-mt-lg" round color="primary" icon="fas fa-times" />
-                    </div>
+                    </div> -->
 
-                    <div class="col-12 q-mt-sm">
+                    <!-- <div class="col-12 q-mt-sm">
 
                       <hr>
                       <span class="text-primary q-my-sm q-ml-md">
@@ -52,7 +59,7 @@
                       <q-radio class="q-ml-xl" v-model="shippingOptions" val="lorem"  label="Lorem ipsum dolor sit amet, co" />
 
 
-                    </div>
+                    </div> -->
 
                   </div>
 
@@ -90,12 +97,12 @@
                   <p class="q-title">Subtotal</p>
                 </div>
 
-                <div class="col-6 text-right q-mt-sm">
-                  <p class="q-title">$180,500</p>
+                <div class="col-6 text-right q-mt-sm" v-if="plan">
+                  <p class="q-title">$ {{plan.price}}</p>
                 </div>
 
                 <!-- 2nd Line -->
-                <div class="col-12">
+                <!-- <div class="col-12">
                   <hr>
                 </div>
 
@@ -105,10 +112,10 @@
 
                 <div class="col-6 text-right q-mt-sm">
                   <p class="q-title">$0</p>
-                </div>
+                </div> -->
 
                 <!-- 3r Line -->
-                <div class="col-12">
+                <!-- <div class="col-12">
                   <hr>
                 </div>
 
@@ -118,10 +125,10 @@
 
                 <div class="col-6 text-right q-mt-sm">
                   <p class="q-title">$0</p>
-                </div>
+                </div> -->
 
                 <!-- 4d -->
-                <div class="col-12">
+                <!-- <div class="col-12">
                   <hr>
                 </div>
 
@@ -129,7 +136,7 @@
                   <a class="q-title text-black" style="text-decoration: underline ;" href="#">
                     Calcular envío
                   </a>
-                </div>
+                </div> -->
 
                 <!-- 5° Line -->
                 <div class="col-12">
@@ -141,7 +148,7 @@
                 </div>
 
                 <div class="col-6 text-right text-primary q-mt-md">
-                  <p class="q-title">$180,500</p>
+                  <p class="q-title">$ {{plan.price}}</p>
                 </div>
 
               </div>
@@ -150,7 +157,7 @@
           </q-card>
 
           <div class="q-my-lg text-center">
-            <q-btn style="border-radius: 10px;border-color:black;border-style:solid;"
+            <q-btn @click="submit()" style="border-radius: 10px;border-color:black;border-style:solid;"
             class="capitalize text-weight-bold full-width" color="primary"
             label="PROCESAR COMPRA" />
 
@@ -189,6 +196,7 @@ export default {
       console.log(this.planId);
       console.log('userId');
       console.log(this.userId);
+      this.getPlan();
     })
   },
   data() {
@@ -200,12 +208,17 @@ export default {
       productId: 0,
       minimizedModal: false,
       plans:[],
-      product:[],
+      plan:null,
       userId: this.$store.state.quserAuth.userId,
       planId:this.$route.params.planId,
       status: 0,
       selectOptions:[
-        {label:"1",value:"1"}
+        {label:"1",value:1},
+        {label:"2",value:2},
+        {label:"3",value:3},
+        {label:"4",value:4},
+        {label:"5",value:5},
+        {label:"6",value:6},
       ],
       cities:[
         {label:"Bogotá",value:"CO_BO"},
@@ -254,6 +267,39 @@ export default {
     }
   },
   methods: {
+
+    getPlan(){
+      if(this.planId){
+        //Params
+        let params = {
+          refresh: true,
+          params: {
+            include: 'features',
+            filter: {allTranslations: true}
+          }
+        }
+
+        //Request
+        this.$crud.show("apiRoutes.qsubscription.plans",this.planId,params).then(response => {
+          this.plan=response.data;
+        }).catch(error => {
+          this.$alert.error({message: this.$tr('ui.message.errorRequest'), pos: 'bottom'})
+        })
+      }
+    },
+    submit(){
+      let params={
+          plan_id:this.planId,
+      };
+      this.$crud.create("apiRoutes.qsubscription.suscriptions",params).then(response => {
+
+        this.$alert.success({message: this.$tr('qsubscription.messages.success.createSubscription'), pos: 'bottom'})
+        this.$router.push({ name: 'app.home'});
+
+      }).catch(error => {
+        this.$alert.error({message: this.$tr('ui.message.errorRequest'), pos: 'bottom'})
+      })
+    }
 
   }
 }
