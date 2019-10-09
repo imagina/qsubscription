@@ -1,80 +1,71 @@
 <template>
-  <div id="pageId">
-    <div class="relative-position q-mb-lg backend-page">
+  <q-page class="page">
 
-      <div class="box">
-        <div class="row gutter-x-sm">
+    <div class="bg-fondo q-px-sm q-py-xl">
+      <div class="q-container">
+        <div class="row">
+          <div class="col-12 text-center q-my-lg">
 
-          <div class="col-12 text-center">
-            <h4>{{product.name}}</h4>
-            <p>{{product.description}}</p>
+            <h4 class="font-family-secondary text-tertiary">{{product.name}}</h4>
+            <p class="text-weight-medium">{{product.description}}</p>
+
+            <h4 class="title-arrow-line-tertiary font-family-secondary">
+              {{product.name}}
+            </h4>
+
           </div>
+        </div>
+        <div class="row q-mb-xl stairs">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 q-mb-xl step" v-for="(plan,index) in product.plans" :style="{ marginTop: (index+5) + '0px' }">
+            <q-card class="rounded-sm bg-white plan relative-position w-100 h-100">
 
-          <div class="col-1">
+              <q-card-title class="bg-degradado text-right" style="height: 20px;">
+                <img class="img-title" src="/assets/img/plan-oro.png" alt="plan">
+              </q-card-title>
 
-          </div>
+              <q-card-main class="q-px-xl" style=" padding-bottom: 100px;">
 
-          <div class="col-10">
-            <div class="row">
+                <div class="row">
+                  <div class="col-8">
+                     <h5 class="font-family-secondary text-primary q-mt-xl q-mb-none">{{plan.name}}</h5>
+                  <h6 class="q-mt-none">{{plan.description}}</h6>
+                  </div>
+                </div>
 
-              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 q-my-sm"  v-for="plan in product.plans">
 
-                <!--
-                Styles gradient
-                border-top: 10px solid transparent; -moz-border-image: -moz-linear-gradient(left, rgba(248,80,50,1) 0%, rgba(252,26,98,1) 0%, rgba(241,111,92,1) 52%, rgba(246,41,12,1) 52%, rgba(246,41,12,1) 52%, rgba(241,111,92,1) 52%, rgba(240,47,23,1) 90%, rgba(240,47,23,1) 91%);
-                -webkit-border-image: -webkit-linear-gradient(left, rgba(248,80,50,1) 0%, rgba(252,26,98,1) 0%, rgba(241,111,92,1) 52%, rgba(246,41,12,1) 52%, rgba(246,41,12,1) 52%, rgba(241,111,92,1) 52%, rgba(240,47,23,1) 90%, rgba(240,47,23,1) 91%);
-                border-image: linear-gradient(to right, rgba(248,80,50,1) 0%, rgba(252,26,98,1) 0%, rgba(241,111,92,1) 52%, rgba(246,41,12,1) 52%, rgba(246,41,12,1) 52%, rgba(241,111,92,1) 52%, rgba(240,47,23,1) 90%, rgba(240,47,23,1) 91%);
-                border-image-slice: 1;
-              -->
-                <q-card style="border-radius: 10px; ">
-                  <q-card-title class="q-ml-sm">
-                    <span class="text-primary">{{plan.name}}</span>
-                    <span slot="subtitle">
-                      <strong>
-                        {{plan.description}}
-                      </strong>
-                    </span>
-                  </q-card-title>
-                  <q-card-main>
-                    <ul>
-                      <li style="list-style-type: none;" v-for="feature in plan.features">
-                        <i class="fas fa-check q-icon text-primary"></i>
-                        {{feature.name}}
-                      </li>
-                    </ul>
+                <div class="list-plan q-subheading" v-for="feature in plan.features">
+                  <i class="fas fa-check text-primary q-pr-md"></i>
+                  {{feature.name}}
+                </div>
 
-                    <div class="row">
-                      <!-- LEFT SIDE -->
-                      <div class="col-6 text-center bg-primary text-white">
-                        <span class="">
-                          {{plan.price}} - {{plan.frequency}} {{plan.billCycleText}}
-                        </span>
-                      </div>
-                      <!-- RIGHT SIDE -->
-                      <div class="col-6 text-center bg-primary text-white" style="border-left:1px solid #dee2e6!important">
-                        <q-btn
-                        :loading="loading.page"
-                        label="Suscribirme" @click="subscribe(plan.id)"
-                        />
-                      </div>
-                    </div>
+              </q-card-main>
 
-                  </q-card-main>
-                </q-card>
+              <q-card-actions class="bg-degradado font-family-secondary">
+                <div class="row items-center w-100">
+                <div class="col-6 text-center  text-white">
+                    {{plan.price}} - {{plan.frequency}} {{plan.billCycleText}}
+                </div>
+                <div class="col-6 text-center  text-white" style="border-left:1px solid #dee2e6!important">
 
+                  <q-btn
+                  flat
+                  size="lg"
+                  :loading="loading.page"
+                  no-caps
+                  label="Suscribirme" @click="subscribe(plan.id)"
+                  />
+
+                </div>
               </div>
-            </div>
-          </div>
-
-          <div class="col-1">
+              </q-card-actions>
+            </q-card>
 
           </div>
-
-
-
         </div>
       </div>
     </div>
+
+    <product productId="6"/>
 
     <!-- specifying Vue ref for last example only -->
     <q-modal @hide="loading.page=false" v-model="minimizedModal" minimized :content-css="{padding: '50px'}" ref="modalRef">
@@ -117,10 +108,8 @@
           <q-btn class="text-white bg-primary " label="Crear cuenta" />
         </div>
       </div>
-
     </q-modal>
-
-  </div>
+  </q-page>
 </template>
 <script>
 //Plugins
@@ -128,9 +117,10 @@ import {required} from 'vuelidate/lib/validators'
 //Components
 import locales from '@imagina/qsite/_components/locales'
 import mediaForm from '@imagina/qmedia/_components/form'
+import product from '@imagina/qsubscription/_components/frontend/product'
 export default {
   props: {},
-  components: {locales, mediaForm,},
+  components: {locales, mediaForm,product},
   watch: {},
   validations() {
     return {}
@@ -226,6 +216,7 @@ export default {
           this.$crud.show("apiRoutes.qsubscription.products",this.productId,params).then(response => {
             this.product=response.data;
             this.loading.page = false;
+            console.log(response.data);
             resolve(true)//Resolve
           }).catch(error => {
             this.$alert.error({message: this.$tr('ui.message.errorRequest'), pos: 'bottom'})
