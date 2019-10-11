@@ -16,7 +16,7 @@
               <span class="">
                 Carrito de compras
               </span>
-              <q-card style="border-radius: 10px;" class="q-mt-sm">
+              <q-card class="q-mt-sm rounded-sm">
                 <q-card-main>
 
                   <div class="row q-my-md">
@@ -26,40 +26,20 @@
                     <div class="col-4">
                       <p class="text-primary q-mt-sm q-mx-sm q-title">{{plan.name}}</p>
                       <p class="q-mx-sm">{{plan.description}}</p>
-                      <p class="q-mx-sm">{{plan.frequency}} {{plan.billCycleText}}</p>
+                      <!-- <p class="q-mx-sm">{{plan.frequency}} {{plan.billCycleText}}</p> -->
                       <p class="q-my-md q-mx-sm text-primary">$ {{plan.price}}</p>
                     </div>
-                    <div class="col-6 text-center">
-                      <span class="q-title">{{$tr('qsubscription.layout.form.features')}}</span>
-                      <div class="list-plan q-subheading q-mt-sm" v-if="index<5" v-for="(feature,index) in plan.features">
-                        <i class="fas fa-check text-primary q-pr-md"></i>
-                        {{feature.name}}
-                      </div>
-                    </div>
-                    <!-- <div class="col-3 text-center">
+                    <div class="col-3 text-center">
                       <q-select
                       class="q-title"
-                      float-label="Cantidad"
+                      :float-label="'Cantidad - '+plan.billCycleText"
                       v-model="quantity"
                       :options="selectOptions"
                       />
-                    </div> -->
-                    <!-- <div class="col-3 text-center">
-                      <q-btn class="q-mt-lg" round color="primary" icon="fas fa-times" />
-                    </div> -->
-
-                    <!-- <div class="col-12 q-mt-sm">
-
-                      <hr>
-                      <span class="text-primary q-my-sm q-ml-md">
-                        <i class="fas fa-shopping-basket"></i>
-                        Opciones de envio
-                      </span>
-                      <br>
-                      <q-radio class="q-ml-xl" v-model="shippingOptions" val="lorem"  label="Lorem ipsum dolor sit amet, co" />
-
-
-                    </div> -->
+                    </div>
+                    <div class="col-3 text-center">
+                      <q-btn @click="$router.push({name: 'app.home'})" class="q-mt-lg" round color="primary" icon="fas fa-times" />
+                    </div>
 
                   </div>
 
@@ -77,7 +57,11 @@
         <div class="col-sm-2">
 
 
-          <q-card style="border-radius: 10px;" class="q-mt-sm">
+          <q-card class="q-mt-sm  rounded-sm">
+
+            <q-card-title class="bg-degradado text-right" style="height: 20px;">
+            </q-card-title>
+
             <q-card-main>
 
               <div class="row q-my-md">
@@ -98,45 +82,8 @@
                 </div>
 
                 <div class="col-6 text-right q-mt-sm" v-if="plan">
-                  <p class="q-title">$ {{plan.price}}</p>
+                  <p class="q-title">$ {{plan.price*quantity}}</p>
                 </div>
-
-                <!-- 2nd Line -->
-                <!-- <div class="col-12">
-                  <hr>
-                </div>
-
-                <div class="col-6 text-left q-mt-sm">
-                  <p class="q-title">Envío</p>
-                </div>
-
-                <div class="col-6 text-right q-mt-sm">
-                  <p class="q-title">$0</p>
-                </div> -->
-
-                <!-- 3r Line -->
-                <!-- <div class="col-12">
-                  <hr>
-                </div>
-
-                <div class="col-6 text-left q-mt-sm">
-                  <p class="q-title">Descuento</p>
-                </div>
-
-                <div class="col-6 text-right q-mt-sm">
-                  <p class="q-title">$0</p>
-                </div> -->
-
-                <!-- 4d -->
-                <!-- <div class="col-12">
-                  <hr>
-                </div>
-
-                <div class="col-12 text-left q-mt-sm">
-                  <a class="q-title text-black" style="text-decoration: underline ;" href="#">
-                    Calcular envío
-                  </a>
-                </div> -->
 
                 <!-- 5° Line -->
                 <div class="col-12">
@@ -148,7 +95,7 @@
                 </div>
 
                 <div class="col-6 text-right text-primary q-mt-md">
-                  <p class="q-title">$ {{plan.price}}</p>
+                  <p class="q-title">$ {{plan.price*quantity}}</p>
                 </div>
 
               </div>
@@ -290,6 +237,7 @@ export default {
     submit(){
       let params={
           plan_id:this.planId,
+          quantity:this.quantity,
       };
       this.$crud.create("apiRoutes.qsubscription.suscriptions",params).then(response => {
 

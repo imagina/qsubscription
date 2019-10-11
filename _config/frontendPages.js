@@ -9,7 +9,7 @@ export default {
   products: {
     permission: null,
     activated: true,
-    path: 'subscriptions/products/:id',
+    path: 'subscriptions/products/:slug',
     name: 'products.show',
     layout: require('@imagina/qsubscription/_layouts/frontend/products/show').default,
     containerLayout: master,
@@ -17,23 +17,35 @@ export default {
     icon: 'fas fa-layer-group',
     // middleware: [auth,access]
   },
-  checkout: {
+
+  shoppingCart: {
     permission: null,
     activated: true,
-    path: 'subscriptions/checkout',
-    name: 'subscriptions.checkout',
-    layout: require('@imagina/qsubscription/_layouts/frontend/checkout/index').default,
+    path: 'subscriptions/shopping-cart',
+    name: 'subscriptions.shopping.cart',
+    layout: require('@imagina/qsubscription/_layouts/frontend/shoppingCart/index').default,
     containerLayout: master,
-    title: 'qsubscription.sidebar.checkout',
+    title: 'qsubscription.sidebar.shoppingCart',
     icon: 'fas fa-layer-group',
     // middleware: [auth,access]
   },
-  checkout2: {
+  shoppingCartTemplate: {
     permission: null,
     activated: true,
-    path: 'subscriptions/checkout2',
-    name: 'subscriptions.checkout2',
-    layout: require('@imagina/qsubscription/_layouts/frontend/checkout/index2').default,
+    path: 'subscriptions/shopping-cart-template',
+    name: 'subscriptions.shopping.cart.template',
+    layout: require('@imagina/qsubscription/_layouts/frontend/shoppingCart/indexTemplate').default,
+    containerLayout: master,
+    title: 'qsubscription.sidebar.shoppingCart',
+    icon: 'fas fa-layer-group',
+    // middleware: [auth,access]
+  },
+  checkoutTemplate: {
+    permission: null,
+    activated: true,
+    path: 'subscriptions/checkout-template',
+    name: 'subscriptions.checkout.template',
+    layout: require('@imagina/qsubscription/_layouts/frontend/checkout/indexTemplate').default,
     containerLayout: master,
     title: 'qsubscription.sidebar.checkout',
     icon: 'fas fa-layer-group',

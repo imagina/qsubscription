@@ -12,4 +12,5 @@ export default {
   plans:"Plans",
   products:"Products",
   checkout : 'Checkout',
+  shoppingCart : 'Shopping cart',
 }

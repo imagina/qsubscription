@@ -127,7 +127,8 @@ export default {
   },
   mounted() {
     this.$nextTick(function () {
-      this.productId=this.$route.params.id;
+      // this.productId=this.$route.params.id;
+      this.slug=this.$route.params.slug;
       this.getProduct();
       console.log('this $store state quserAuth: ');
       console.log(this.$store.state.quserAuth);
@@ -141,6 +142,7 @@ export default {
       },
       configName: 'apiRoutes.qsubscription.products',
       productId: 0,
+      slug: '',
       minimizedModal: false,
       plans:[],
       product:[],
@@ -189,10 +191,10 @@ export default {
     subscribe(planId){
       console.log('Subscribe, planId: '+planId);
       this.loading.page = true;
-      this.$router.push({ name: 'subscriptions.checkout', params: { planId: planId }});
+      this.$router.push({ name: 'subscriptions.shopping.cart', params: { planId: planId }});
       if(this.userId){
-        //push to checkout
-        this.$router.push({ name: 'subscriptions.checkout', params: { planId: planId }});
+        //push to shopping cart
+        this.$router.push({ name: 'subscriptions.shopping.cart', params: { planId: planId }});
       }else{
         this.minimizedModal = true
       }
@@ -202,19 +204,22 @@ export default {
       return new Promise((resolve, reject) => {
         this.loading.page = true
 
-        if (this.productId) {
+        if (this.slug) {
 
           //Params
           let params = {
             refresh: true,
             params: {
               include: 'plans.features',
-              filter: {allTranslations: true}
+              filter: {
+                allTranslations: true,
+                search:"slug"
+              }
             }
           }
 
           //Request
-          this.$crud.show("apiRoutes.qsubscription.products",this.productId,params).then(response => {
+          this.$crud.show("apiRoutes.qsubscription.products",this.slug,params).then(response => {
             this.product=response.data;
             this.loading.page = false;
             resolve(true)//Resolve

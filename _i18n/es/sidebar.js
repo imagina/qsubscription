@@ -12,4 +12,5 @@ export default {
   plans : 'Planes',
   products : 'Productos',
   checkout : 'Finalizar compra',
+  shoppingCart : 'Carrito de compras',
 }
