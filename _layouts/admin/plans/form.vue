@@ -23,6 +23,7 @@
                        type="text" v-model="locale.formTemplate.name"/>
             </q-field>
 
+
             <!--Description-->
             <q-field>
               <div class="input-title">

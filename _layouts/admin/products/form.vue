@@ -23,6 +23,15 @@
                        type="text" v-model="locale.formTemplate.name"/>
             </q-field>
 
+            <!--Slug-->
+            <q-field
+              :error="$v.locale.formTemplate.slug.$error"
+              :error-label="$tr('ui.message.fieldRequired')"
+            >
+              <q-input v-model="locale.formTemplate.slug" type="text"
+              :stack-label="`${$tr('ui.form.slug')} (${locale.language})*`"/>
+            </q-field>
+
             <!--Description-->
             <q-field>
               <div class="input-title">
@@ -122,10 +131,12 @@
           },
           fieldsTranslatable: {
             name: '',
+            slug: '',
             description: ''
           },
           validations: {
-            name: {required}
+            name: {required},
+            slug: {required}
           }
         },
         editorText: {

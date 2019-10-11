@@ -17,6 +17,7 @@
             columns: [
               {name: 'id', label: this.$tr('ui.form.id'), field: 'id', style: 'width: 50px'},
               {name: 'name', label: this.$tr('ui.form.name'), field: 'name', align: 'rigth'},
+              {name: 'slug', label: this.$tr('ui.form.slug'), field: 'slug', align: 'rigth'},
               {
                 name: 'created_at', label: this.$tr('ui.form.createdAt'), field: 'createdAt', align: 'left',
                 format: val => val ? this.$trd(val) : '-',
@@ -48,6 +49,13 @@
             userId: {value: this.$store.state.quserAuth.userId},
             name: {
               label: this.$tr('ui.form.name'),
+              value: '',
+              type: 'text',
+              isRequired: true,
+              isTranslatable: true,
+            },
+            slug: {
+              label: this.$tr('ui.form.slug'),
               value: '',
               type: 'text',
               isRequired: true,
