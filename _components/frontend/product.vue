@@ -52,47 +52,70 @@
       </div>
     </div>
 
-    <q-modal @hide="loading.page=false" v-model="minimizedModal" minimized :content-css="{padding: '50px'}" ref="modalRef">
-      <div class="q-display-1 q-mb-md text-primary">Suscribirme</div>
-      <span>Bienvenido, tu vaina en el mundo entero</span>
-      <hr>
+    <!-- Modal Register / Login-->
+   <q-modal @hide="loading.page=false" v-model="minimizedModal" minimized :content-css="{borderRadius: '20px', minWidth: '50vw', backgroundColor: 'transparent', boxShadow: 'none'}" ref="modalRef">
 
-      <!-- name -->
-      <q-field>
-        <q-input :stack-label="`${$tr('ui.form.name')} *`"
-                 type="text" v-model="name"/>
-      </q-field>
+     <div class="bg-degradado modal-subscription shadow-2 rounded-md q-my-xl">
+       <div class="row items-center">
+         <div class="col-md-4 q-pa-xl">
+           <img :src="logo" :alt="projectName" class="w-100">
+         </div>
+         <div class="col-md-8">
+           <div class="form-general bg-white form rounded-md line-primary border-primary q-pa-xl">
+             <h4 class="text-primary text-center font-family-secondary q-my-none">Suscribirme</h4>
+             <div class="q-body-2 text-center">Bienvenido, tu vaina en el mundo entero</div>
+             <hr class="line-grey q-my-md">
 
-      <!-- phone -->
-      <q-field>
-        <q-input :stack-label="`${$tr('ui.form.phone')} *`"
-                 type="text" v-model="phone"/>
-      </q-field>
+             <!-- name -->
+             <q-field class="q-mb-lg">
+               <p class="q-subheading q-mb-sm"> {{$tr('ui.form.name')}}: </p>
+               <q-input v-model="name" inverted color="white" class="line-grey no-shadow rounded-sm" />
+             </q-field>
 
-      <!-- email -->
-      <q-field>
-        <q-input :stack-label="`${$tr('ui.form.email')} *`"
-                 type="text" v-model="email"/>
-      </q-field>
+             <!-- phone -->
+             <q-field class="q-mb-lg">
+               <p class="q-subheading q-mb-sm">{{$tr('ui.form.phone')}}: </p>
+               <q-input type="text" v-model="phone" inverted color="white" class="line-grey no-shadow rounded-sm"/>
+             </q-field>
 
-      <!-- password -->
-      <q-field>
-        <q-input :stack-label="`${$tr('ui.form.password')} *`"
-                 type="text" v-model="password"/>
-      </q-field>
+             <!-- email -->
+             <q-field class="q-mb-lg">
+               <p class="q-subheading q-mb-sm">{{$tr('ui.form.email')}}: </p>
+               <q-input type="email" v-model="email" inverted color="white" class="line-grey no-shadow rounded-sm"/>
+             </q-field>
 
-      <!-- text -->
-      --- O ingresa por medio de tu red social ---
+             <!-- password -->
+             <q-field class="q-mb-lg">
+               <p class="q-subheading q-mb-sm">{{$tr('ui.form.password')}}:</p>
+               <q-input type="password" v-model="password" inverted color="white" class="line-grey no-shadow rounded-sm"/>
+             </q-field>
 
-      <div class="row">
-        <div class="col-sm-12 text-center q-mb-sm q-mt-sm">
-          <q-btn class="text-primary" label="Iniciar Sesión" />
-        </div>
-        <div class="col-sm-12 text-center q-mt-sm">
-          <q-btn class="text-white bg-primary " label="Crear cuenta" />
-        </div>
-      </div>
-    </q-modal>
+             <!-- text -->
+             <div class="q-body-2 line-text text-center q-mb-lg">
+               <hr class="line-grey q-my-none w-100">
+               <span class="bg-white q-px-lg">O ingresa por medio de tu red social </span>
+             </div>
+
+             <div class="row">
+               <div class="col-xs-12 col-sm-6 text-center">
+                 <q-btn icon="fab fa-facebook text-blue" flat label="FACEBOOK" />
+               </div>
+               <div class="col-xs-12 col-sm-6 text-center">
+                 <q-btn icon="fab fa-google text-red-14" flat label="GOOGLE" />
+               </div>
+               <div class="col-12 text-center q-my-sm">
+                 <q-btn class="text-primary font-family-secondary" no-caps flat label="Iniciar Sesión" />
+               </div>
+               <div class="col-12 text-center q-mt-sm">
+                 <q-btn no-caps class="bg-primary text-white btn-arrow-send-pink">Crear cuenta</q-btn>
+               </div>
+             </div>
+
+           </div>
+         </div>
+       </div>
+     </div>
+   </q-modal>
   </q-page>
 
 
@@ -103,6 +126,8 @@
     name: "product",
     data(){
       return {
+        logo : this.$store.getters['qsiteSettings/getSettingMediaByName']('isite::logo2').path,
+        projectName : "Donde esta esa vaina",
         product: null,
         name: '',
         minimizedModal: false,
