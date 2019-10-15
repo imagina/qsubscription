@@ -1,16 +1,13 @@
-## QPLACE  | 1.0.1
+## QSUBSCRIPTION  | 0.0.1
 
 ## Installation
 
-`` npm i @imagina/qplace@1.0.0 ``
+`` npm i @imagina/qplace@0.0.1 ``
 
 ## API Routes
 
 | ENTITY  | ROUTE |
 | ------------- | ------------- |
-| Categories | apiRoutes.qplace.categories |
-| Places | apiRoutes.qplace.places |
-| Schedules | apiRoutes.qplace.schedules |
 
 ## Pages
 
@@ -18,7 +15,3 @@
 
   | PAGE | NAME |
   | ------------- | ------------- |
-  | Places Index | qplace.admin..places.index |
-  | Places Create | qplace.admin.places.create |
-  | Places Edit | qplace.admin.places.edit |
-  | Categories | qplace.admin.categories |
