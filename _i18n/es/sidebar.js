@@ -13,4 +13,5 @@ export default {
   products : 'Productos',
   checkout : 'Finalizar compra',
   shoppingCart : 'Carrito de compras',
+  summaryOrder : 'Resumen de tu Pedido',
 }

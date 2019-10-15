@@ -30,5 +30,20 @@ export default {
       boolean : "Booleano"
     },
     unit:"Unidad",
+    checkout:{
+      shippingInformation:"Datos de envío",
+      cityResidence:"Ciudad de residencia",
+      paymentMethods:"Métodos de Pago",
+      homeDelivery:"Envío a Domicilio",
+      storePickup:"Recoger en Tienda",
+      products:"Productos",
+      shippingOptions:"Opciones de envio",
+      finalizePurchase:"Finalizar compra",
+      shipping:"Envío",
+      discount:"Descuento",
+      calculateShipping:"Calcular Envío",
+      processPurchase:"Procesar Compra",
+
+    }
   }
 }

@@ -14,14 +14,14 @@
             <!-- Shopping cart -->
             <div class="col-12 q-mt-sm q-mb-sm">
               <span class="">
-                Carrito de compras
+                {{$tr('qsubscription.sidebar.shoppingCart')}}
               </span>
-              <q-card style="border-radius: 10px;" class="q-mt-sm">
+              <q-card class="q-mt-sm rounded-sm">
                 <q-card-main>
 
                   <div class="row q-my-md">
                     <div class="col-sm-2 border">
-                      <img src="https://enred-group.imaginacolombia.com/assets/media/product/3.jpg" class=" q-mx-sm" style="max-width:96%;height:auto;">
+                      <img src="/assets/img/plan-oro.png" class=" q-mx-sm" style="max-width:96%;height:auto;">
                     </div>
                     <div class="col-4">
                       <p class="text-primary q-mt-sm q-mx-sm q-title">Plan plata</p>
@@ -70,7 +70,9 @@
         <div class="col-sm-2">
 
 
-          <q-card style="border-radius: 10px;" class="q-mt-sm">
+          <q-card class="q-mt-sm rounded-sm">
+            <q-card-title class="bg-degradado text-right" style="height: 20px;">
+            </q-card-title>
             <q-card-main>
 
               <div class="row q-my-md">
@@ -79,7 +81,7 @@
                 <div class="col-12 text-center">
 
                   <span class="q-title">
-                    Resumen de tu Pedido
+                    {{$tr('qsubscription.sidebar.summaryOrder')}}
                   </span>
 
                   <hr>

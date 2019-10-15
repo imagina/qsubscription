@@ -14,7 +14,7 @@
             <!-- Shopping cart -->
             <div class="col-12 q-mt-sm q-mb-sm">
               <span class="">
-                Carrito de compras
+                {{$tr('qsubscription.sidebar.shoppingCart')}}
               </span>
               <q-card class="q-mt-sm rounded-sm">
                 <q-card-main>
@@ -32,7 +32,7 @@
                     <div class="col-3 text-center">
                       <q-select
                       class="q-title"
-                      :float-label="'Cantidad - '+plan.billCycleText"
+                      :float-label="$tr('qsubscription.layout.form.types.quantity')+plan.billCycleText"
                       v-model="quantity"
                       :options="selectOptions"
                       />
@@ -54,7 +54,7 @@
         <div class="col-sm-1"></div>
 
         <!-- RIGHT SIDE -->
-        <div class="col-sm-2">
+        <div class="col-sm-2" >
 
 
           <q-card class="q-mt-sm  rounded-sm">
@@ -64,13 +64,13 @@
 
             <q-card-main>
 
-              <div class="row q-my-md">
+              <div class="row q-my-md" v-if="plan">
 
                 <!-- 1° Line -->
                 <div class="col-12 text-center">
 
                   <span class="q-title">
-                    Resumen de tu Pedido
+                    {{$tr('qsubscription.sidebar.summaryOrder')}}
                   </span>
 
                   <hr>
@@ -106,7 +106,7 @@
           <div class="q-my-lg text-center">
             <q-btn @click="submit()" style="border-radius: 10px;border-color:black;border-style:solid;"
             class="capitalize text-weight-bold full-width" color="primary"
-            label="PROCESAR COMPRA" />
+            :label="$tr('qsubscription.layout.form.checkout.processPurchase')" />
 
           </div>
 
@@ -138,11 +138,6 @@ export default {
   },
   mounted() {
     this.$nextTick(function () {
-      console.log('asdiajdioajdoasjdoad index checkout');
-      console.log('EL plan:');
-      console.log(this.planId);
-      console.log('userId');
-      console.log(this.userId);
       this.getPlan();
     })
   },
@@ -166,6 +161,12 @@ export default {
         {label:"4",value:4},
         {label:"5",value:5},
         {label:"6",value:6},
+        {label:"7",value:7},
+        {label:"8",value:8},
+        {label:"9",value:9},
+        {label:"10",value:10},
+        {label:"11",value:11},
+        {label:"12",value:12},
       ],
       cities:[
         {label:"Bogotá",value:"CO_BO"},

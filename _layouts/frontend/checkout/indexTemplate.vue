@@ -15,7 +15,7 @@
             <div class="col-sm-12 q-mt-sm q-mb-sm">
               <span class="">
                 <i class="fas fa-truck text-primary"></i>
-                Datos de Envío
+                {{$tr('qsubscription.layout.form.checkout.shippingInformation')}}
               </span>
               <q-card style="border-radius: 10px;" class="q-mt-sm">
                 <q-card-main>
@@ -26,7 +26,7 @@
                     <div class="col-sm-6">
 
                       <q-field>
-                        <q-input stack-label="Nombre"
+                        <q-input :stack-label="$tr('ui.form.name')"
                         type="text" v-model="name"/>
                       </q-field>
                     </div>
@@ -34,7 +34,7 @@
                     <!-- lastName -->
                     <div class="col-sm-6">
                       <q-field>
-                        <q-input stack-label="Apellido"
+                        <q-input :stack-label="$tr('ui.form.lastName')"
                         type="text" v-model="lastName"/>
                       </q-field>
                     </div>
@@ -42,7 +42,7 @@
                     <!-- phone -->
                     <div class="col-sm-6">
                       <q-field>
-                        <q-input stack-label="Número de Teléfono"
+                        <q-input :stack-label="$tr('ui.form.phone')"
                         type="text" v-model="phone"/>
                       </q-field>
                     </div>
@@ -50,7 +50,7 @@
                     <!-- email -->
                     <div class="col-sm-6">
                       <q-field>
-                        <q-input stack-label="Correo Electrónico"
+                        <q-input :stack-label="$tr('ui.form.email')"
                         type="text" v-model="email"/>
                       </q-field>
                     </div>
@@ -59,7 +59,7 @@
                     <div class="col-sm-6">
 
                       <q-select
-                      float-label="Ciudad de residencia"
+                      :float-label="$tr('qsubscription.layout.form.checkout.cityResidence')"
                       v-model="city_id"
                       :options="cities"
                       />
@@ -69,16 +69,16 @@
                     <!-- Dirección -->
                     <div class="col-sm-6">
                       <q-field>
-                        <q-input stack-label="Dirección"
+                        <q-input :stack-label="$tr('ui.form.address')"
                         type="text" v-model="address"/>
                       </q-field>
                     </div>
 
                     <div class="col-sm-6 text-center q-mt-sm">
-                      <q-btn outline style="border-radius: 10px;border-color:black;border-style:solid;" class="capitalize text-weight-bold" icon="fa fa-truck text-primary" label="Envío a Domicilio" />
+                      <q-btn outline style="border-radius: 10px;border-color:black;border-style:solid;" class="capitalize text-weight-bold" icon="fa fa-truck text-primary" :label="$tr('qsubscription.layout.form.checkout.homeDelivery')" />
                     </div>
                     <div class="col-sm-6 text-center q-mt-sm">
-                      <q-btn outline style="border-radius: 10px;border-color:black;border-style:solid;" class="capitalize text-weight-bold" icon="fa fa-shopping-basket text-primary" label="Recoger en Tienda " />
+                      <q-btn outline style="border-radius: 10px;border-color:black;border-style:solid;" class="capitalize text-weight-bold" icon="fa fa-shopping-basket text-primary" :label="$tr('qsubscription.layout.form.checkout.storePickup')" />
                     </div>
 
                   </div>
@@ -91,7 +91,7 @@
             <div class="col-sm-12 q-mt-sm q-mb-sm">
               <span class="">
                 <i class="fas fa-credit-card text-primary"></i>
-                Métodos de Pago
+                {{$tr('qsubscription.layout.form.checkout.paymentMethods')}}
               </span>
               <q-card style="border-radius: 10px;" class="q-mt-sm">
                 <q-card-main>
@@ -143,14 +143,14 @@
             <div class="col-sm-12 q-mt-sm q-mb-sm">
               <span class="">
                 <i class="fas fa-shopping-basket text-primary"></i>
-                Productos
+                {{$tr('qsubscription.layout.form.checkout.products')}}
               </span>
               <q-card style="border-radius: 10px;" class="q-mt-sm">
                 <q-card-main>
 
                   <div class="row q-my-md">
                     <div class="col-sm-2 border">
-                      <img src="https://enred-group.imaginacolombia.com/assets/media/product/3.jpg" class=" q-mx-sm" alt="" style="height:100%;width:100%;">
+                      <img src="/assets/img/plan-oro.png" class=" q-mx-sm" alt="" style="height:100%;width:100%;">
                     </div>
                     <div class="col-sm-4">
                       <p class="text-primary q-mt-sm q-mx-sm q-title">Plan plata</p>
@@ -175,7 +175,7 @@
                       <hr>
                       <span class="text-primary q-my-sm q-ml-md">
                         <i class="fas fa-shopping-basket"></i>
-                        Opciones de envio
+                        {{$tr('qsubscription.layout.form.checkout.shippingOptions')}}
                       </span>
                       <br>
                       <q-radio class="q-ml-xl" v-model="shippingOptions" val="lorem"  label="Lorem ipsum dolor sit amet, co" />
@@ -192,7 +192,7 @@
             <div class="col-sm-12 q-mt-md q-mb-sm text-right">
               <label class="text-primary">TOTAL $ 180,500</label>
               <br>
-              <q-btn class="q-mt-lg" color="primary" label="FINALIZAR COMPRA" />
+              <q-btn class="q-mt-lg" color="primary" :label="$tr('qsubscription.layout.form.checkout.finalizePurchase')" />
 
             </div>
 
@@ -214,7 +214,7 @@
                 <!-- 1° Line -->
                 <div class="col-sm-12">
 
-                  <q-btn class="full-width"  color="primary" label="FINALIZAR COMPRA" />
+                  <q-btn class="full-width"  color="primary" :label="$tr('qsubscription.layout.form.checkout.finalizePurchase')" />
 
                   <hr>
 
@@ -234,7 +234,7 @@
                 </div>
 
                 <div class="col-sm-6 text-left">
-                  <p class="q-title">Envío</p>
+                  <p class="q-title">{{$tr('qsubscription.layout.form.checkout.shipping')}}</p>
                 </div>
 
                 <div class="col-sm-6 text-right">
@@ -247,7 +247,7 @@
                 </div>
 
                 <div class="col-sm-6 text-left">
-                  <p class="q-title">Descuento</p>
+                  <p class="q-title">{{$tr('qsubscription.layout.form.checkout.discount')}}</p>
                 </div>
 
                 <div class="col-sm-6 text-right">
@@ -261,7 +261,7 @@
 
                 <div class="col-sm-12 text-left">
                   <a class="q-title text-black" style="text-decoration: underline ;" href="#">
-                    Calcular envío
+                    {{$tr('qsubscription.layout.form.checkout.calculateShipping')}}
                   </a>
                 </div>
 
@@ -311,8 +311,7 @@ export default {
   },
   mounted() {
     this.$nextTick(function () {
-      console.log('asdiajdioajdoasjdoad index checkout');
-      console.log('EL plan:');
+      console.log('planId:');
       console.log(this.planId);
       console.log('userId');
       console.log(this.userId);
@@ -332,7 +331,7 @@ export default {
       planId:this.$route.params.planId,
       status: 0,
       selectOptions:[
-        {label:"1",value:"1"}
+        {label:"1",value:1}
       ],
       cities:[
         {label:"Bogotá",value:"CO_BO"},
