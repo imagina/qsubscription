@@ -32,7 +32,7 @@
                     <div class="col-3 text-center">
                       <q-select
                       class="q-title"
-                      :float-label="$tr('qsubscription.layout.form.types.quantity')+plan.billCycleText"
+                      :float-label="$tr('qsubscription.layout.form.types.quantity')+' en '+plan.billCycleText"
                       v-model="quantity"
                       :options="selectOptions"
                       />
@@ -104,7 +104,7 @@
           </q-card>
 
           <div class="q-my-lg text-center">
-            <q-btn @click="submit()" style="border-radius: 10px;border-color:black;border-style:solid;"
+            <q-btn @click="$router.push({ name: 'subscriptions.checkout', params: { planId: planId,quantity:quantity }})" style="border-radius: 10px;border-color:black;border-style:solid;"
             class="capitalize text-weight-bold full-width" color="primary"
             :label="$tr('qsubscription.layout.form.checkout.processPurchase')" />
 
