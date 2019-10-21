@@ -408,7 +408,7 @@ export default {
     },
     getPaymentMethods(){
       //Get
-      this.$crud.index("apiRoutes.qcommerce.paymentMethods").then(response => {
+      this.$crud.index("apiRoutes.qsubscription.paymentMethods").then(response => {
         this.paymentMethods=response.data;
       })
     }

@@ -11,4 +11,5 @@ export default {
   plans: `${urlBase}/plans`,
   products: `${urlBase}/products`,
   suscriptions: `${urlBase}/suscriptions`,
+  paymentMethods: `${urlBase}/payment-methods`,
 }
