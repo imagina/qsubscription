@@ -101,6 +101,13 @@
                         type="number" v-model="locale.formTemplate.price"/>
              </q-field>
 
+             <div class="input-title">{{$tr('ui.form.image')}}</div>
+             <upload-media
+              v-model="locale.formTemplate.mediasSingle"
+              entity="Modules\Suscriptions\Entities\Plan"
+              :entity-id="itemId ? itemId : null"
+              zone='mainimage'
+             />
 
           </div>
 
@@ -148,17 +155,19 @@
   import mediaForm from '@imagina/qmedia/_components/form'
   import recursiveList from 'src/components/master/recursiveListSelect'
   import schedulesForm from 'src/components/master/schedules'
+  import uploadMedia from '@imagina/qmedia/_components/form'
 
   export default {
     props: {},
-    components: {locales, mediaForm, recursiveList, schedulesForm},
+    components: {locales, mediaForm, recursiveList, schedulesForm,uploadMedia},
     watch: {},
     validations() {
       return this.getObjectValidation()
     },
     mounted() {
       this.$nextTick(function () {
-        this.init()
+        this.init();
+        console.log(this.itemId);
       })
     },
     data() {
@@ -183,6 +192,7 @@
             frequency: "",
             billCycle: "week",
             features: [],
+            mediasSingle: {},
           },
           fieldsTranslatable: {
             name: '',

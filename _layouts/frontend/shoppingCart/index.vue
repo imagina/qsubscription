@@ -21,7 +21,7 @@
 
                   <div class="row q-my-md">
                     <div class="col-sm-2 border">
-                      <img src="/assets/img/plan-oro.png" class=" q-mx-sm" style="max-width:96%;height:auto;">
+                      <img :src="plan.mainImage.path" class=" q-mx-sm" style="max-width:96%;height:auto;">
                     </div>
                     <div class="col-4">
                       <p class="text-primary q-mt-sm q-mx-sm q-title">{{plan.name}}</p>

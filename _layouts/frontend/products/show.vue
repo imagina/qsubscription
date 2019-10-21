@@ -20,7 +20,7 @@
             <q-card class="rounded-sm bg-white plan relative-position w-100 h-100">
 
               <q-card-title class="bg-degradado text-right" style="height: 20px;">
-                <img class="img-title" src="/assets/img/plan-oro.png" alt="plan">
+                <img class="img-title" :src="plan.mainImage.path" alt="plan">
               </q-card-title>
 
               <q-card-main class="q-px-xl" style=" padding-bottom: 100px;">

@@ -146,7 +146,7 @@
                 <div class="row gutter-sm">
                   <div class="col-xs-5 col-sm-2 col-md-2">
                     <div class="ratio-1" style="border: 2px solid #ccc;">
-                      <img src="/assets/img/plan-oro.png" :alt="plan.name">
+                      <img :src="plan.mainImage.path" :alt="plan.name">
                     </div>
                   </div>
                   <div class="col-xs-7 col-sm-6 col-md-6">
