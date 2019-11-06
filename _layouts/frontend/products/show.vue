@@ -17,13 +17,13 @@
         </div>
         <div class="row q-mb-xl stairs">
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 q-mb-xl step" v-for="(plan,index) in product.plans" :style="{ marginTop: (index+5) + '0px' }">
-            <q-card class="rounded-sm bg-white plan relative-position w-100 h-100">
+            <q-card class="rounded-sm bg-white plan relative-position w-100 h-100 my-card">
 
-              <q-card-title class="bg-degradado text-right" style="height: 20px;">
+              <div class="bg-degradado text-right" style="height: 20px;">
                 <img class="img-title" :src="plan.mainImage.path" alt="plan">
-              </q-card-title>
+              </div>
 
-              <q-card-main class="q-px-xl" style=" padding-bottom: 100px;">
+              <q-card-section class="q-px-xl" style=" padding-bottom: 100px;">
 
                 <div class="row">
                   <div class="col-8">
@@ -38,8 +38,8 @@
                   {{feature.name}}
                 </div>
 
-              </q-card-main>
-
+              </q-card-section>
+              <q-separator />
               <q-card-actions class="bg-degradado font-family-secondary">
                 <div class="row items-center w-100">
                 <div class="col-6 text-center  text-white">
@@ -68,7 +68,7 @@
     <product productId="6"/>
 
     <!-- Modal Register / Login-->
-   <q-modal @hide="loading.page=false" v-model="minimizedModal" minimized :content-css="{borderRadius: '20px', minWidth: '50vw', backgroundColor: 'transparent', boxShadow: 'none'}" ref="modalRef">
+   <q-dialog transition-show="rotate" transition-hide="rotate" full-height full-width @hide="loading.page=false" v-model="minimizedModal" minimized :content-css="{borderRadius: '20px', minWidth: '50vw', backgroundColor: 'transparent', boxShadow: 'none'}" ref="modalRef">
 
      <div class="bg-degradado modal-subscription shadow-2 rounded-md q-my-xl">
        <div class="row items-center">
@@ -145,7 +145,7 @@
          </div>
        </div>
      </div>
-   </q-modal>
+   </q-dialog>
 
   </q-page>
 </template>
@@ -365,5 +365,4 @@ export default {
 }
 </script>
 <style lang="stylus">
-@import "~variables";
 </style>

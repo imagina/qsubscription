@@ -17,8 +17,8 @@
         <div class="row justify-center stairs-d q-mb-xl">
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 q-mb-xl step" v-for="(plan,index) in product.plans" :style="{ marginTop: (index+2) + '0px', marginBottom: '-' + (index) + '0px' }">
             <q-card class="rounded-sm bg-white plan relative-position w-100 h-100">
-              <q-card-title class="bg-degradado text-right"></q-card-title>
-              <q-card-main class="q-px-lg" style=" padding-bottom: 80px;">
+              <div class="bg-degradado text-right"></div>
+              <q-card-section class="q-px-lg" style=" padding-bottom: 80px;">
 
                 <h5 class="font-family-secondary text-primary q-mt-xl q-mb-lg" style="display: flex;">
                   <q-icon class="q-icon-round" name="far fa-id-card"  size="24px" />
@@ -32,7 +32,7 @@
 
                 <h5 class="font-family-secondary text-primary text-center q-mt-xl q-mb-none" v-show="!plan.free">${{plan.price}} </h5>
 
-              </q-card-main>
+              </q-card-section>
 
               <q-card-actions class="justify-center">
                   <q-btn
@@ -53,7 +53,7 @@
     </div>
 
     <!-- Modal Register / Login-->
-   <q-modal @hide="loading.page=false" v-model="minimizedModal" minimized :content-css="{borderRadius: '20px', minWidth: '50vw', backgroundColor: 'transparent', boxShadow: 'none'}" ref="modalRef">
+   <q-dialog transition-show="rotate" transition-hide="rotate" full-height full-width @hide="loading.page=false" v-model="minimizedModal" minimized :content-css="{borderRadius: '20px', minWidth: '50vw', backgroundColor: 'transparent', boxShadow: 'none'}" ref="modalRef">
 
      <div class="bg-degradado modal-subscription shadow-2 rounded-md q-my-xl">
        <div class="row items-center">
@@ -115,7 +115,7 @@
          </div>
        </div>
      </div>
-   </q-modal>
+   </q-dialog>
   </q-page>
 
 
@@ -188,5 +188,4 @@
 </script>
 
 <style lang="stylus">
-@import "~variables";
 </style>

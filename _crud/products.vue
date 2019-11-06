@@ -29,12 +29,14 @@
               {
                 icon : 'fas fa-location-arrow',
                 color : 'warning',
-                route : 'qsubscription.admin.plans.index'
+                route : 'qsubscription.admin.plans.index',
+                tooltip:this.$tr('qsubscription.sidebar.adminPlans')
               },
               {
                 icon : 'fas fa-stream',
                 color : 'info',
-                route : 'qsubscription.admin.features.index'
+                route : 'qsubscription.admin.features.index',
+                tooltip:this.$tr('qsubscription.sidebar.adminFeatures')
               },
             ]
           },
@@ -51,14 +53,18 @@
               label: this.$tr('ui.form.name'),
               value: '',
               type: 'text',
-              isRequired: true,
+              rules: [
+                val => !!val || this.$tr('ui.message.fieldRequired')
+              ],
               isTranslatable: true,
             },
             slug: {
               label: this.$tr('ui.form.slug'),
               value: '',
               type: 'text',
-              isRequired: true,
+              rules: [
+                val => !!val || this.$tr('ui.message.fieldRequired')
+              ],
               isTranslatable: true,
             },
             description: {
@@ -77,8 +83,8 @@
               value: '1',
               type: 'select',
               options: [
-                {label: this.$tr('ui.label.enabled'), id: '1'},
-                {label: this.$tr('ui.label.disabled'), id: '0'},
+                {label: this.$tr('ui.label.enabled'), value: '1'},
+                {label: this.$tr('ui.label.disabled'), value: '0'},
               ],
             },
 

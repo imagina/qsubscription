@@ -1,173 +1,162 @@
 <template>
   <div id="adminPlansFrom">
+    <q-no-ssr>
     <!--Content-->
-    <div class="relative-position q-mb-lg backend-page">
+      <div class="relative-position q-mb-lg backend-page">
 
-      <!--Form-->
-      <div class="box">
-        <div class="row gutter-x-sm">
+        <!--Data-->
+        <q-form autocorrect="off" autocomplete="off" ref="formContent" class="box"
+        @submit="(!itemId && !field) ? createItem() : updateItem()"
+        @validation-error="$alert.error($tr('ui.message.formInvalid'))">
+          <!--Form-->
+          <div class="box">
+            <div class="row gutter-x-sm">
 
-           <!--Languages-->
-          <div class="col-12">
-            <locales ref="localeComponent" v-model="locale" @validate="$v.$touch()"/>
-          </div>
+              <!--Languages-->
+             <div class="col-12">
+               <locales ref="localeComponent" v-model="locale" :form="$refs.formContent"/>
+             </div>
 
-          <!---Form Left-->
-          <div class="col-12 col-md-8" v-if="locale.success">
-            <!--name-->
-            <q-field
-              :error="$v.locale.formTemplate.name.$error"
-              :error-label="$tr('ui.message.fieldRequired')"
-            >
-              <q-input :stack-label="`${$tr('ui.form.name')} (${locale.language}) *`"
-                       type="text" v-model="locale.formTemplate.name"/>
-            </q-field>
+              <!---Form Left-->
+              <div class="col-12 col-md-8" v-if="locale.success">
 
+              <!--name-->
+              <q-input v-model="locale.formTemplate.name" outlined dense
+                       :rules="[val => !!val || $tr('ui.message.fieldRequired')]"
+                       :label="`${$tr('ui.form.name')} (${locale.language})*`"/>
 
-            <!--Description-->
-            <q-field>
-              <div class="input-title">
-                {{`${$tr('ui.form.description')} (${locale.language}) *`}}
-              </div>
-              <q-editor v-model="locale.formTemplate.description" :toolbar="editorText.toolbar"/>
-            </q-field>
+              <!--Description-->
+              <div class="input-title">{{`${$tr('ui.form.description')} (${locale.language})*`}}</div>
+              <q-field v-model="locale.formTemplate.description" borderless
+                       :rules="[val => !!val || $tr('ui.message.fieldRequired')]">
+                <q-editor v-model="locale.formTemplate.description" class="full-width"
+                          :toolbar="editorText.toolbar" content-class="text-grey-9" toolbar-text-color="grey-9"/>
+              </q-field>
 
-            <!--frequency-->
-            <q-field>
-              <q-input :stack-label="`${$tr('qsubscription.layout.form.frequency')} (${locale.language}) *`"
-                       type="number" v-model="locale.formTemplate.frequency"/>
-            </q-field>
+              <!--frequency-->
+              <q-input v-model="locale.formTemplate.frequency" outlined dense type="number"
+                       :rules="[val => !!val || $tr('ui.message.fieldRequired')]"
+                       :label="`${$tr('qsubscription.layout.form.frequency')} (${locale.language})*`"/>
 
-            <!--BillCyles-->
-             <q-field>
-               <div class="input-title">{{`${$tr('qsubscription.layout.form.bill_cycle')}`}}</div>
-               <tree-select
-                 :clearable="false"
-                 :options="optionsFields.billCycles"
-                 value-consists-of="BRANCH_PRIORITY"
-                 v-model="locale.formTemplate.billCycle"
-                 placeholder=""
-               />
-             </q-field>
+              <!--BillCyles-->
+              <div class="input-title">{{`${$tr('qsubscription.layout.form.bill_cycle')}`}}</div>
+              <tree-select
+                :clearable="false"
+                :append-to-body="true"
+                class="q-mb-md"
+                :options="optionsFields.billCycles"
+                value-consists-of="BRANCH_PRIORITY"
+                v-model="locale.formTemplate.billCycle"
+                placeholder=""
+              />
 
-          </div>
+            </div>
 
-          <!---Form Right-->
-          <div class="col-12 col-md-4" v-if="locale.success">
+            <!---Form Right-->
+            <div class="col-12 col-md-4" v-if="locale.success">
 
-            <!--Status-->
-            <q-field>
+              <!--Status-->
               <div class="input-title">{{`${$tr('ui.form.status')}`}}</div>
               <tree-select
                 :clearable="false"
+                :append-to-body="true"
+                class="q-mb-md"
                 :options="optionsFields.status"
                 value-consists-of="BRANCH_PRIORITY"
                 v-model="locale.formTemplate.status"
                 placeholder=""
               />
-            </q-field>
 
-            <!--code-->
-            <q-field>
-              <q-input :stack-label="`${$tr('qsubscription.layout.form.code')} (${locale.language}) *`"
-                       type="text" v-model="locale.formTemplate.code"/>
-            </q-field>
+              <!--code-->
+              <q-input v-model="locale.formTemplate.code" outlined dense
+                       :rules="[val => !!val || $tr('ui.message.fieldRequired')]"
+                       :label="`${$tr('qsubscription.layout.form.code')} (${locale.language})*`"/>
 
-            <!--displayOrder-->
-            <q-field>
-              <q-input :stack-label="`${$tr('qsubscription.layout.form.display_order')} (${locale.language}) *`"
-                       type="number" v-model="locale.formTemplate.displayOrder"/>
-            </q-field>
+              <!--displayOrder-->
+              <q-input v-model="locale.formTemplate.displayOrder" outlined dense type="number"
+                       :rules="[val => !!val || $tr('ui.message.fieldRequired')]"
+                       :label="`${$tr('qsubscription.layout.form.display_order')} (${locale.language})*`"/>
 
-            <div class="input-title">{{`${$tr('qsubscription.layout.form.features')}`}}</div>
-            <q-select
-               multiple
-               v-model="locale.formTemplate.features"
-               :options="featuresOptions"
-             />
+              <div class="input-title">{{`${$tr('qsubscription.layout.form.features')}`}}</div>
+              <q-select
+              multiple
+              v-model="locale.formTemplate.features"
+              :options="featuresOptions"
+              />
 
-             <hr>
+              <hr>
 
-             <!-- Free -->
-             <q-checkbox v-model="locale.formTemplate.free" :label="$tr('qsubscription.layout.form.free')" />
-             <!-- Visible -->
-             <q-checkbox v-model="locale.formTemplate.visible" :label="$tr('qsubscription.layout.form.visible')" />
-             <!-- Recommendation -->
-             <q-checkbox v-model="locale.formTemplate.recommendation" :label="$tr('qsubscription.layout.form.recommendation')" />
+              <!-- Free -->
+              <q-checkbox v-model="locale.formTemplate.free" :label="$tr('qsubscription.layout.form.free')" />
+              <!-- Visible -->
+              <q-checkbox v-model="locale.formTemplate.visible" :label="$tr('qsubscription.layout.form.visible')" />
+              <!-- Recommendation -->
+              <q-checkbox v-model="locale.formTemplate.recommendation" :label="$tr('qsubscription.layout.form.recommendation')" />
 
-             <!--Price-->
-             <q-field>
-               <q-input :stack-label="`${$tr('qsubscription.layout.form.price')} (${locale.language}) *`"
-                        type="number" v-model="locale.formTemplate.price"/>
-             </q-field>
+              <!--Price-->
+              <q-input v-model="locale.formTemplate.price" outlined dense type="number"
+                       :rules="[val => !!val || $tr('ui.message.fieldRequired')]"
+                       :label="`${$tr('qsubscription.layout.form.price')} (${locale.language})*`"/>
 
-             <div class="input-title">{{$tr('ui.form.image')}}</div>
-             <upload-media
+              <div class="input-title">{{$tr('ui.form.image')}}</div>
+              <upload-media
               v-model="locale.formTemplate.mediasSingle"
               entity="Modules\Suscriptions\Entities\Plan"
               :entity-id="itemId ? itemId : null"
               zone='mainimage'
-             />
+              />
+
+            </div>
+
 
           </div>
-
-
         </div>
-      </div>
 
-      <!--Buttons Actions-->
-      <q-page-sticky position="bottom-right" :offset="[18, 18]">
-        <!--Update button-->
-        <q-btn
+        <!--Buttons Actions-->
+        <q-page-sticky position="bottom-right" :offset="[18, 18]">
+          <!--Update button-->
+          <q-btn
           v-if="itemId"
           color="positive" :loading="loading.page"
           icon="fas fa-edit" :label="$tr('ui.label.update')" @click="updateItem()"
-        />
-        <!--Save button-->
-        <q-btn-dropdown :label="buttonActions.label" split v-else :loading="loading.app"
-                        content-style="min-width: 250px !important"
-                        color="positive" icon="fas fa-save" @click="createItem()" rounded align="right">
-          <q-list link>
-            <q-item @click.native="buttonActions = {label : optionsFields.btn.saveAndReturn, value : 1}"
-                    v-close-overlay>
-              {{optionsFields.btn.saveAndReturn}}
-            </q-item>
-            <q-item @click.native="buttonActions = {label : optionsFields.btn.saveAndCreate, value : 3}"
-                    v-close-overlay>
-              {{optionsFields.btn.saveAndCreate}}
-            </q-item>
-          </q-list>
-        </q-btn-dropdown>
-      </q-page-sticky>
+          />
+          <!--Save button-->
+          <q-btn-dropdown :label="buttonActions.label" split v-else :loading="loading.app"
+          content-style="min-width: 250px !important"
+          color="positive" icon="fas fa-save" @click="createItem()" rounded align="right">
+            <q-list link>
+              <q-item @click.native="buttonActions = {label : optionsFields.btn.saveAndReturn, value : 1}"
+                v-close-overlay>
+                {{optionsFields.btn.saveAndReturn}}
+              </q-item>
+              <q-item @click.native="buttonActions = {label : optionsFields.btn.saveAndCreate, value : 3}"
+              v-close-overlay>
+                {{optionsFields.btn.saveAndCreate}}
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
+        </q-page-sticky>
+        </q-form>
 
       <!--Loading-->
       <inner-loading :visible="loading.page"/>
     </div>
+    </q-no-ssr>
 
   </div>
 </template>
 <script>
-  //Plugins
-  import {required} from 'vuelidate/lib/validators'
-  import {gmaps} from '@imagina/qplace/_plugins/gmaps'
   //Components
   import locales from '@imagina/qsite/_components/locales'
-  import mediaForm from '@imagina/qmedia/_components/form'
   import recursiveList from 'src/components/master/recursiveListSelect'
   import schedulesForm from 'src/components/master/schedules'
   import uploadMedia from '@imagina/qmedia/_components/form'
 
   export default {
-    props: {},
-    components: {locales, mediaForm, recursiveList, schedulesForm,uploadMedia},
-    watch: {},
-    validations() {
-      return this.getObjectValidation()
-    },
+    components: {locales, recursiveList, schedulesForm,uploadMedia},
     mounted() {
       this.$nextTick(function () {
         this.init();
-        console.log(this.itemId);
       })
     },
     data() {
@@ -197,9 +186,6 @@
           fieldsTranslatable: {
             name: '',
             description: ''
-          },
-          validations: {
-            name: {required}
           }
         },
         editorText: {
@@ -228,8 +214,8 @@
       optionsFields() {
         return {
           status: [
-            {label: this.$tr('ui.label.enabled'), id: 1},
-            {label: this.$tr('ui.label.disabled'), id: 0}
+            {label: this.$tr('ui.label.enabled'), value: 1,id:1},
+            {label: this.$tr('ui.label.disabled'), value: 0,id:0}
           ],
           billCycles: [
             {label: this.$tr('qsubscription.layout.form.bill_cycles.weeks'), id: 'week', value: 'week'},
@@ -295,18 +281,9 @@
 
         })
       },
-      //Return object to validations
-      getObjectValidation() {
-        let response = {}
-        if (this.locale && this.locale.formValidations)
-          response = {locale: this.locale.formValidations}
-        return response
-      },
       //Create Product
-      createItem() {
-        this.$refs.localeComponent.vTouch()//Validate component locales
-        //Check validations
-        if (!this.$v.$error) {
+      async createItem() {
+        if (await this.$refs.localeComponent.validateForm()) {
           this.loading.page = true
           this.$crud.create(this.configName, this.locale.form).then(response => {
             this.$alert.success({message: `${this.$tr('ui.message.recordCreated')}`})
@@ -338,10 +315,8 @@
         }, 500)
       },
       //Update Product
-      updateItem() {
-        this.$refs.localeComponent.vTouch()//Validate component locales
-        //Check validations
-        if (!this.$v.$error) {
+      async updateItem() {
+        if (await this.$refs.localeComponent.validateForm()) {
           this.loading.page = true
           this.$crud.update(this.configName, this.itemId, this.locale.form).then(response => {
             this.$alert.success({message: `${this.$tr('ui.message.recordUpdated')}`})
@@ -361,5 +336,4 @@
   }
 </script>
 <style lang="stylus">
-  @import "~variables";
 </style>

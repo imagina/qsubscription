@@ -44,7 +44,9 @@
               label: this.$tr('ui.form.name'),
               value: '',
               type: 'text',
-              isRequired: true,
+              rules: [
+                val => !!val || this.$tr('ui.message.fieldRequired')
+              ],
               isTranslatable: true,
             },
             description: {
@@ -59,7 +61,9 @@
               label: this.$tr('qsubscription.layout.form.frequency'),
               value: 1,
               type: 'number',
-              isRequired: true,
+              rules: [
+                val => !!val || this.$tr('ui.message.fieldRequired')
+              ],
               isTranslatable: false,
             },
 
@@ -68,9 +72,9 @@
               value: 'week',
               type: 'select',
               options: [
-                {label: this.$tr('qsubscription.layout.form.bill_cycles.weeks'), id: 'week'},
-                {label: this.$tr('qsubscription.layout.form.bill_cycles.months'), id: 'month'},
-                {label: this.$tr('qsubscription.layout.form.bill_cycles.years'), id: 'year'},
+                {label: this.$tr('qsubscription.layout.form.bill_cycles.weeks'), value: 'week'},
+                {label: this.$tr('qsubscription.layout.form.bill_cycles.months'), value: 'month'},
+                {label: this.$tr('qsubscription.layout.form.bill_cycles.years'), value: 'year'},
               ],
             },
 
@@ -82,8 +86,8 @@
               value: '1',
               type: 'select',
               options: [
-                {label: this.$tr('ui.label.enabled'), id: '1'},
-                {label: this.$tr('ui.label.disabled'), id: '0'},
+                {label: this.$tr('ui.label.enabled'), value: '1'},
+                {label: this.$tr('ui.label.disabled'), value: '0'},
               ],
             },
 
@@ -131,7 +135,9 @@
               label: this.$tr('qsubscription.layout.form.price'),
               value: 1,
               type: 'number',
-              isRequired: true,
+              rules: [
+                val => !!val || this.$tr('ui.message.fieldRequired')
+              ],
               isTranslatable: false,
             },
 
@@ -139,7 +145,9 @@
               label: this.$tr('qsubscription.layout.form.trial_period'),
               value: 1,
               type: 'number',
-              isRequired: true,
+              rules: [
+                val => !!val || this.$tr('ui.message.fieldRequired')
+              ],
               isTranslatable: false,
             },
 

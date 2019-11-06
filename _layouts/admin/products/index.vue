@@ -2,20 +2,6 @@
   <div id="pageId">
     <!---Component CRUD-->
     <crud :crud-data="import('@imagina/qsubscription/_crud/products')"/>
-    <!-- <div class="relative-position q-mb-lg backend-page">
-
-      <div class="box">
-        <div class="row gutter-x-sm">
-
-          <div class="col-12 col-md-8" >
-
-            adsdadadadad
-
-          </div>
-
-        </div>
-      </div>
-    </div> -->
 
   </div>
 </template>
@@ -31,7 +17,6 @@ import schedulesForm from 'src/components/master/schedules'
   export default {
     props: {},
     components: {locales, mediaForm, recursiveList, schedulesForm},
-    watch: {},
     validations() {
       return {}
     },
@@ -86,5 +71,4 @@ import schedulesForm from 'src/components/master/schedules'
   }
 </script>
 <style lang="stylus">
-  @import "~variables";
 </style>

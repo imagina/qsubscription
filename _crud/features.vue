@@ -43,14 +43,18 @@
               label: this.$tr('ui.form.name'),
               value: '',
               type: 'text',
-              isRequired: true,
+              rules: [
+                val => !!val || this.$tr('ui.message.fieldRequired')
+              ],
               isTranslatable: true,
             },
             caption: {
               label: this.$tr('qsubscription.layout.form.caption'),
               value: '',
               type: 'text',
-              isRequired: true,
+              rules: [
+                val => !!val || this.$tr('ui.message.fieldRequired')
+              ],
               isTranslatable: true,
             },
             description: {
@@ -69,8 +73,8 @@
               value: '1',
               type: 'select',
               options: [
-                {label: this.$tr('ui.label.enabled'), id: '1'},
-                {label: this.$tr('ui.label.disabled'), id: '0'},
+                {label: this.$tr('ui.label.enabled'), value: '1'},
+                {label: this.$tr('ui.label.disabled'), value: '0'},
               ],
             },
 
@@ -79,9 +83,9 @@
               value: 1,
               type: 'select',
               options: [
-                {label: this.$tr('qsubscription.layout.form.types.quantity'), id: 0},
-                {label: this.$tr('qsubscription.layout.form.types.text'), id: 1},
-                {label: this.$tr('qsubscription.layout.form.types.boolean'), id: 2},
+                {label: this.$tr('qsubscription.layout.form.types.quantity'), value: 0},
+                {label: this.$tr('qsubscription.layout.form.types.text'), value: 1},
+                {label: this.$tr('qsubscription.layout.form.types.boolean'), value: 2},
               ],
             },
 

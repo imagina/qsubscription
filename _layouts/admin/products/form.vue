@@ -1,43 +1,39 @@
 <template>
   <div id="adminProductsFrom">
+    <q-no-ssr>
     <!--Content-->
     <div class="relative-position q-mb-lg backend-page">
-
+      <!--Data-->
+      <q-form autocorrect="off" autocomplete="off" ref="formContent" class="box"
+      @submit="(!itemId && !field) ? createItem() : updateItem()"
+      @validation-error="$alert.error($tr('ui.message.formInvalid'))">
       <!--Form-->
-      <div class="box">
-        <div class="row gutter-x-sm">
+      <div class="row gutter-x-sm">
 
            <!--Languages-->
           <div class="col-12">
-            <locales ref="localeComponent" v-model="locale" @validate="$v.$touch()"/>
+            <locales ref="localeComponent" v-model="locale" :form="$refs.formContent"/>
           </div>
 
           <!---Form Left-->
           <div class="col-12 col-md-8" v-if="locale.success">
+
             <!--name-->
-            <q-field
-              :error="$v.locale.formTemplate.name.$error"
-              :error-label="$tr('ui.message.fieldRequired')"
-            >
-              <q-input :stack-label="`${$tr('ui.form.name')} (${locale.language}) *`"
-                       type="text" v-model="locale.formTemplate.name"/>
-            </q-field>
+            <q-input v-model="locale.formTemplate.name" @input="setSlug()" outlined dense
+                     :rules="[val => !!val || $tr('ui.message.fieldRequired')]"
+                     :label="`${$tr('ui.form.name')} (${locale.language})*`"/>
 
             <!--Slug-->
-            <q-field
-              :error="$v.locale.formTemplate.slug.$error"
-              :error-label="$tr('ui.message.fieldRequired')"
-            >
-              <q-input v-model="locale.formTemplate.slug" type="text"
-              :stack-label="`${$tr('ui.form.slug')} (${locale.language})*`"/>
-            </q-field>
+            <q-input v-model="locale.formTemplate.slug" outlined dense
+            :rules="[val => !!val || $tr('ui.message.fieldRequired')]"
+            :label="`${$tr('ui.form.slug')} (${locale.language})*`"/>
 
             <!--Description-->
-            <q-field>
-              <div class="input-title">
-                {{`${$tr('ui.form.description')} (${locale.language}) *`}}
-              </div>
-              <q-editor v-model="locale.formTemplate.description" :toolbar="editorText.toolbar"/>
+            <div class="input-title">{{`${$tr('ui.form.description')} (${locale.language})*`}}</div>
+            <q-field v-model="locale.formTemplate.description" borderless
+                     :rules="[val => !!val || $tr('ui.message.fieldRequired')]">
+              <q-editor v-model="locale.formTemplate.description" class="full-width"
+                        :toolbar="editorText.toolbar" content-class="text-grey-9" toolbar-text-color="grey-9"/>
             </q-field>
 
           </div>
@@ -46,22 +42,22 @@
           <div class="col-12 col-md-4" v-if="locale.success">
 
             <!--Status-->
-            <q-field>
-              <div class="input-title">{{`${$tr('ui.form.status')}`}}</div>
-              <tree-select
-                :clearable="false"
-                :options="optionsFields.status"
-                value-consists-of="BRANCH_PRIORITY"
-                v-model="locale.formTemplate.status"
-                placeholder=""
-              />
-            </q-field>
+            <div class="input-title">{{`${$tr('ui.form.status')}`}}</div>
+            <tree-select
+              :clearable="false"
+              :append-to-body="true"
+              class="q-mb-md"
+              :options="optionsFields.status"
+              value-consists-of="BRANCH_PRIORITY"
+              v-model="locale.formTemplate.status"
+              placeholder=""
+            />
+
 
           </div>
 
 
         </div>
-      </div>
 
       <!--Buttons Actions-->
       <q-page-sticky position="bottom-right" :offset="[18, 18]">
@@ -87,30 +83,25 @@
           </q-list>
         </q-btn-dropdown>
       </q-page-sticky>
+      </q-form>
 
       <!--Loading-->
       <inner-loading :visible="loading.page"/>
     </div>
+  </q-no-ssr>
 
   </div>
 </template>
 <script>
-  //Plugins
-  import {required} from 'vuelidate/lib/validators'
-  import {gmaps} from '@imagina/qplace/_plugins/gmaps'
   //Components
   import locales from '@imagina/qsite/_components/locales'
-  import mediaForm from '@imagina/qmedia/_components/form'
   import recursiveList from 'src/components/master/recursiveListSelect'
   import schedulesForm from 'src/components/master/schedules'
 
   export default {
     props: {},
-    components: {locales, mediaForm, recursiveList, schedulesForm},
+    components: {locales, recursiveList, schedulesForm},
     watch: {},
-    validations() {
-      return this.getObjectValidation()
-    },
     mounted() {
       this.$nextTick(function () {
         this.init()
@@ -133,10 +124,6 @@
             name: '',
             slug: '',
             description: ''
-          },
-          validations: {
-            name: {required},
-            slug: {required}
           }
         },
         editorText: {
@@ -165,8 +152,8 @@
       optionsFields() {
         return {
           status: [
-            {label: this.$tr('ui.label.enabled'), id: 1},
-            {label: this.$tr('ui.label.disabled'), id: 0}
+            {label: this.$tr('ui.label.enabled'), id: 1,value:1},
+            {label: this.$tr('ui.label.disabled'), id: 0,value:0}
           ],
           btn: {
             saveAndReturn: this.$tr('ui.message.saveAndReturn'),
@@ -184,6 +171,7 @@
 
         //Set default button action
         this.buttonActions = {label: this.optionsFields.btn.saveAndReturn, value: 1}
+
       },
       //Get data item
       getData() {
@@ -216,18 +204,9 @@
 
         })
       },
-      //Return object to validations
-      getObjectValidation() {
-        let response = {}
-        if (this.locale && this.locale.formValidations)
-          response = {locale: this.locale.formValidations}
-        return response
-      },
       //Create Product
-      createItem() {
-        this.$refs.localeComponent.vTouch()//Validate component locales
-        //Check validations
-        if (!this.$v.$error) {
+      async createItem() {
+        if (await this.$refs.localeComponent.validateForm()) {
           this.loading.page = true
           this.$crud.create(this.configName, this.locale.form).then(response => {
             this.$alert.success({message: `${this.$tr('ui.message.recordCreated')}`})
@@ -256,10 +235,8 @@
         }, 500)
       },
       //Update Product
-      updateItem() {
-        this.$refs.localeComponent.vTouch()//Validate component locales
-        //Check validations
-        if (!this.$v.$error) {
+      async updateItem() {
+        if (await this.$refs.localeComponent.validateForm()) {
           this.loading.page = true
           this.$crud.update(this.configName, this.itemId, this.locale.form).then(response => {
             this.$alert.success({message: `${this.$tr('ui.message.recordUpdated')}`})
@@ -273,9 +250,16 @@
           this.$alert.error({message: this.$tr('ui.message.formInvalid'), pos: 'bottom'})
         }
       },
+      //Complete slug Only when is creation
+      setSlug () {
+        if (!this.productId) {
+          let title = this.$clone(this.locale.formTemplate.name)
+          title = title.split(' ').join('-').toLowerCase()
+          this.locale.formTemplate.slug = this.$clone(title.normalize('NFD').replace(/[\u0300-\u036f]/g, ''))
+        }
+      }
     }
   }
 </script>
 <style lang="stylus">
-  @import "~variables";
 </style>
