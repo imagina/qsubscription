@@ -89,7 +89,7 @@
 
             <q-card class="rounded-sm bg-white q-mb-xl">
 
-              <q-card-main class="q-pa-xl form-general">
+              <q-card-section class="q-pa-xl form-general">
 
                 <div class="row gutter-md justify-center">
                   <div class="col-12">
@@ -129,7 +129,7 @@
                   </div>
                 </div>
 
-              </q-card-main>
+              </q-card-section>
 
             </q-card>
 
@@ -141,12 +141,12 @@
 
             <q-card class="rounded-sm bg-white q-pa-md" v-if="plan">
 
-              <q-card-main>
+              <q-card-section>
 
                 <div class="row gutter-sm">
                   <div class="col-xs-5 col-sm-2 col-md-2">
                     <div class="ratio-1" style="border: 2px solid #ccc;">
-                      <img :src="plan.mainImage.path" :alt="plan.name">
+                      <img :src="plan.mainImage.path" :alt="plan.name" class="responsive">
                     </div>
                   </div>
                   <div class="col-xs-7 col-sm-6 col-md-6">
@@ -161,13 +161,16 @@
                         <div class="q-body-1 text-secondary">{{$tr('qsubscription.layout.form.types.quantity')}}</div>
                       </div>
                       <div class="col-6">
-                        <q-select
-                        class="select-border"
-                        v-model="quantity"
-                        align="right"
-                        hide-underline
-                        :options="selectOptions"
+                        <tree-select
+                          :clearable="false"
+                          :append-to-body="true"
+                          class="q-mb-md"
+                          :options="selectOptions"
+                          value-consists-of="BRANCH_PRIORITY"
+                          v-model="quantity"
+                          placeholder=""
                         />
+
                       </div>
                     </div>
                   </div>
@@ -190,7 +193,7 @@
                   </div>
                 </div> -->
 
-              </q-card-main>
+              </q-card-section>
 
             </q-card>
 
@@ -212,7 +215,7 @@
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
             <q-card class="rounded-sm bg-white plan" v-if="plan">
-              <q-card-main style="color: #333333;">
+              <q-card-section style="color: #333333;">
               <q-btn size="lg" @click="submit()"
                 class="capitalize text-weight-bold full-width rounded-sm q-mb-md" color="primary"
                 :label="$tr('qsubscription.layout.form.checkout.finalizePurchase')" />
@@ -258,7 +261,7 @@
                     <p class="q-subheading text-weight-bold text-primary q-my-md">$ {{plan.price*quantity}}</p>
                   </div>
                 </div>
-              </q-card-main>
+              </q-card-section>
             </q-card>
 
           </div>
@@ -303,18 +306,18 @@ export default {
       quantity:this.$route.params.quantity,
       status: 0,
       selectOptions:[
-        {label:"1",value:1},
-        {label:"2",value:2},
-        {label:"3",value:3},
-        {label:"4",value:4},
-        {label:"5",value:5},
-        {label:"6",value:6},
-        {label:"7",value:7},
-        {label:"8",value:8},
-        {label:"9",value:9},
-        {label:"10",value:10},
-        {label:"11",value:11},
-        {label:"12",value:12},
+        {value:1,id:1,label:"1"},
+        {value:2,id:2,label:"2"},
+        {value:3,id:3,label:"3"},
+        {value:4,id:4,label:"4"},
+        {value:5,id:5,label:"5"},
+        {value:6,id:6,label:"6"},
+        {value:7,id:7,label:"7"},
+        {value:8,id:8,label:"8"},
+        {value:9,id:9,label:"9"},
+        {lvalue:10,id:10,label:"10"},
+        {lvalue:11,id:11,label:"11"},
+        {lvalue:12,id:12,label:"12"}
       ],
       cities:[
         {label:"Bogotá",value:"CO_BO"},

@@ -15,7 +15,7 @@ export default {
   shoppingCart: {
     permission: null,
     activated: true,
-    path: 'subscriptions/shopping-cart',
+    path: 'subscriptions/shopping-cart/:planId',
     name: 'subscriptions.shopping.cart',
     page: () => import('@imagina/qsubscription/_layouts/frontend/shoppingCart/index'),
     layout: () => import('src/layouts/master'),
@@ -48,7 +48,7 @@ export default {
   checkout: {
     permission: null,
     activated: true,
-    path: 'subscriptions/checkout',
+    path: 'subscriptions/checkout/:planId/:quantity',
     name: 'subscriptions.checkout',
     page: () => import('@imagina/qsubscription/_layouts/frontend/checkout/index'),
     layout: () => import('src/layouts/master'),

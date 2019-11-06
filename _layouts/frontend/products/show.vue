@@ -236,12 +236,8 @@ export default {
   methods: {
 
     init(){
-      console.log('this $store state quserAuth: ');
-      console.log(this.$store.state.quserAuth);
-      console.log(this.userId);
       let captcha = _cloneDeep(this.form.captcha)//Save captcha
       this.form.captcha = captcha//Add captch
-      console.log(this.form);
     },
     //check if captcha is defined
     checkedCaptcha() {

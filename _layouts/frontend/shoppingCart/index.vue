@@ -16,8 +16,8 @@
               <span class="">
                 {{$tr('qsubscription.sidebar.shoppingCart')}}
               </span>
-              <q-card class="q-mt-sm rounded-sm">
-                <q-card-main>
+              <q-card class="q-mt-sm rounded-sm my-card">
+                <q-card-section>
 
                   <div class="row q-my-md">
                     <div class="col-sm-2 border">
@@ -30,12 +30,18 @@
                       <p class="q-my-md q-mx-sm text-primary">$ {{plan.price}}</p>
                     </div>
                     <div class="col-3 text-center">
-                      <q-select
-                      class="q-title"
-                      :float-label="$tr('qsubscription.layout.form.types.quantity')+' en '+plan.billCycleText"
-                      v-model="quantity"
-                      :options="selectOptions"
+
+                      <div class="input-title">{{`${$tr('qsubscription.layout.form.types.quantity')+' en '+plan.billCycleText}`}}</div>
+                      <tree-select
+                        :clearable="false"
+                        :append-to-body="true"
+                        class="q-mb-md"
+                        :options="selectOptions"
+                        value-consists-of="BRANCH_PRIORITY"
+                        v-model="quantity"
+                        placeholder=""
                       />
+
                     </div>
                     <div class="col-3 text-center">
                       <q-btn @click="$router.push({name: 'app.home'})" class="q-mt-lg" round color="primary" icon="fas fa-times" />
@@ -43,7 +49,7 @@
 
                   </div>
 
-                </q-card-main>
+                </q-card-section>
               </q-card>
             </div>
 
@@ -57,12 +63,12 @@
         <div class="col-sm-2" >
 
 
-          <q-card class="q-mt-sm  rounded-sm">
+          <q-card class="q-mt-sm  rounded-sm my-card">
 
-            <q-card-title class="bg-degradado text-right" style="height: 20px;">
-            </q-card-title>
+            <div class="bg-degradado text-right" style="height: 20px;">
+            </div>
 
-            <q-card-main>
+            <q-card-section>
 
               <div class="row q-my-md" v-if="plan">
 
@@ -100,7 +106,7 @@
 
               </div>
 
-            </q-card-main>
+            </q-card-section>
           </q-card>
 
           <div class="q-my-lg text-center">
@@ -155,18 +161,18 @@ export default {
       planId:this.$route.params.planId,
       status: 0,
       selectOptions:[
-        {label:"1",value:1},
-        {label:"2",value:2},
-        {label:"3",value:3},
-        {label:"4",value:4},
-        {label:"5",value:5},
-        {label:"6",value:6},
-        {label:"7",value:7},
-        {label:"8",value:8},
-        {label:"9",value:9},
-        {label:"10",value:10},
-        {label:"11",value:11},
-        {label:"12",value:12},
+        {label:"1",value:1,id:1},
+        {label:"2",value:2,id:2},
+        {label:"3",value:3,id:3},
+        {label:"4",value:4,id:4},
+        {label:"5",value:5,id:5},
+        {label:"6",value:6,id:6},
+        {label:"7",value:7,id:7},
+        {label:"8",value:8,id:8},
+        {label:"9",value:9,id:9},
+        {label:"10",value:10,id:10},
+        {label:"11",value:11,id:11},
+        {label:"12",value:12,id:12}
       ],
       cities:[
         {label:"Bogotá",value:"CO_BO"},
@@ -226,7 +232,6 @@ export default {
             filter: {allTranslations: true}
           }
         }
-
         //Request
         this.$crud.show("apiRoutes.qsubscription.plans",this.planId,params).then(response => {
           this.plan=response.data;
