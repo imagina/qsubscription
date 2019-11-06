@@ -285,7 +285,13 @@
       async createItem() {
         if (await this.$refs.localeComponent.validateForm()) {
           this.loading.page = true
-          this.$crud.create(this.configName, this.locale.form).then(response => {
+          var data=this.$clone(this.locale.form);
+          var features=[];
+          for(var i=0;i<data.features.length;i++){
+            features.push(data.features[i].value);
+          }//for
+          data.features=features;
+          this.$crud.create(this.configName, data).then(response => {
             this.$alert.success({message: `${this.$tr('ui.message.recordCreated')}`})
             this.actionAfterCreated()
           }).catch(error => {
@@ -318,7 +324,13 @@
       async updateItem() {
         if (await this.$refs.localeComponent.validateForm()) {
           this.loading.page = true
-          this.$crud.update(this.configName, this.itemId, this.locale.form).then(response => {
+          var data=this.$clone(this.locale.form);
+          var features=[];
+          for(var i=0;i<data.features.length;i++){
+            features.push(data.features[i].value);
+          }//for
+          data.features=features;
+          this.$crud.update(this.configName, this.itemId, data).then(response => {
             this.$alert.success({message: `${this.$tr('ui.message.recordUpdated')}`})
             // this.$router.push({name: 'qsubscription.admin.products.index',
             // params:{ id : 4}})//Redirect to index
