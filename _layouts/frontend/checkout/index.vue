@@ -119,7 +119,7 @@
                       </span>
                     </div>
 
-                    <q-radio style="text-transform:capitalize;" v-for="payMethod in paymentMethods" v-model="paymentMethodId" :val="payMethod.id" :label="payMethod.name" />
+                    <q-radio style="text-transform:capitalize;" v-for="payMethod in paymentMethods" v-model="paymentMethodId" :val="payMethod.id" :key="payMethod.id" :label="payMethod.name" />
                     <hr class="line-grey q-my-md">
                     <!-- <q-radio v-model="paymentMethod" val="payu" label="PayU" />
                     <hr class="line-grey q-my-md">
