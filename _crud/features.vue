@@ -17,6 +17,7 @@
             columns: [
               {name: 'id', label: this.$tr('ui.form.id'), field: 'id', style: 'width: 50px'},
               {name: 'name', label: this.$tr('ui.form.name'), field: 'name', align: 'rigth'},
+              {name: 'type', label: this.$tr('ui.form.type'), field: 'type', align: 'rigth'},
               {
                 name: 'created_at', label: this.$tr('ui.form.createdAt'), field: 'createdAt', align: 'left',
                 format: val => val ? this.$trd(val) : '-',

@@ -5,7 +5,7 @@
       <div class="relative-position q-mb-lg backend-page">
 
         <!--Data-->
-        <q-form autocorrect="off" autocomplete="off" ref="formContent" class="box"
+        <q-form autocorrect="off" autocomplete="off" ref="formContent"
         @submit="(!itemId && !field) ? createItem() : updateItem()"
         @validation-error="$alert.error($tr('ui.message.formInvalid'))">
           <!--Form-->
@@ -50,41 +50,27 @@
                 placeholder=""
               />
 
-            </div>
-
-            <!---Form Right-->
-            <div class="col-12 col-md-4" v-if="locale.success">
-
               <!--Status-->
               <div class="input-title">{{`${$tr('ui.form.status')}`}}</div>
               <tree-select
-                :clearable="false"
-                :append-to-body="true"
-                class="q-mb-md"
-                :options="optionsFields.status"
-                value-consists-of="BRANCH_PRIORITY"
-                v-model="locale.formTemplate.status"
-                placeholder=""
+              :clearable="false"
+              :append-to-body="true"
+              class="q-mb-md"
+              :options="optionsFields.status"
+              value-consists-of="BRANCH_PRIORITY"
+              v-model="locale.formTemplate.status"
+              placeholder=""
               />
 
               <!--code-->
               <q-input v-model="locale.formTemplate.code" outlined dense
-                       :rules="[val => !!val || $tr('ui.message.fieldRequired')]"
-                       :label="`${$tr('qsubscription.layout.form.code')} (${locale.language})*`"/>
+              :rules="[val => !!val || $tr('ui.message.fieldRequired')]"
+              :label="`${$tr('qsubscription.layout.form.code')} (${locale.language})*`"/>
 
               <!--displayOrder-->
               <q-input v-model="locale.formTemplate.displayOrder" outlined dense type="number"
-                       :rules="[val => !!val || $tr('ui.message.fieldRequired')]"
-                       :label="`${$tr('qsubscription.layout.form.display_order')} (${locale.language})*`"/>
-
-              <div class="input-title">{{`${$tr('qsubscription.layout.form.features')}`}}</div>
-              <q-select
-              multiple
-              v-model="locale.formTemplate.features"
-              :options="featuresOptions"
-              />
-
-              <hr>
+              :rules="[val => !!val || $tr('ui.message.fieldRequired')]"
+              :label="`${$tr('qsubscription.layout.form.display_order')} (${locale.language})*`"/>
 
               <!-- Free -->
               <q-checkbox v-model="locale.formTemplate.free" :label="$tr('qsubscription.layout.form.free')" />
@@ -95,9 +81,16 @@
 
               <!--Price-->
               <q-input v-model="locale.formTemplate.price" outlined dense type="number"
-                       :rules="[val => !!val || $tr('ui.message.fieldRequired')]"
-                       :label="`${$tr('qsubscription.layout.form.price')} (${locale.language})*`"/>
+              :rules="[val => !!val || $tr('ui.message.fieldRequired')]"
+              :label="`${$tr('qsubscription.layout.form.price')} (${locale.language})*`"/>
 
+
+            </div>
+
+            <!---Form Right-->
+            <div class="col-12 col-md-4" v-if="locale.success">
+
+              <!-- Image -->
               <div class="input-title">{{$tr('ui.form.image')}}</div>
               <upload-media
               v-model="locale.formTemplate.mediasSingle"
@@ -105,6 +98,31 @@
               :entity-id="itemId ? itemId : null"
               zone='mainimage'
               />
+              <br>
+              <!-- Features -->
+              <div class="input-title">{{`${$tr('qsubscription.layout.form.features')}`}}</div>
+              <br>
+              <div v-if="itemId" v-for="(feature,index) in locale.formTemplate.features" :key="'feature'+index">
+                <q-input v-model="feature.value" outlined dense v-if="feature.type==1" type="text"
+                :rules="[val => !!val || $tr('ui.message.fieldRequired')]"
+                :label="feature.name"/>
+                <q-input v-model="feature.value" outlined dense v-else-if="feature.type==0" type="number"
+                :rules="[val => !!val || $tr('ui.message.fieldRequired')]"
+                :label="feature.name"/>
+                <q-checkbox v-model="feature.value" left-label :label="feature.name" v-if="feature.type==2"/>
+
+              </div>
+
+              <div v-else>
+
+                <q-select
+                multiple
+                v-model="locale.formTemplate.features"
+                :options="featuresOptions"
+                />
+
+              </div>
+
 
             </div>
 
@@ -167,6 +185,7 @@
         configName: 'apiRoutes.qsubscription.plans',
         itemId: false,
         featuresOptions:[],
+        features:[],
         locale: {
           fields: {
             id: '',
@@ -257,8 +276,12 @@
             //Request
             this.$crud.show(this.configName, itemId, params).then(response => {
               if(response.data.features.length>0){
-                for(var i=0;i<response.data.features.length;i++){
-                  response.data.features[i]=response.data.features[i].id;
+                for(var i=0;i<response.data.features[i].length;i++){
+                  if(parseInt(response.data.features[i].type)==2){
+                    if(response.data.features[i].value==""){
+                      response.data.features[i].value=false;
+                    }
+                  }
                 }//for
               }
               this.locale.form = this.$clone(response.data);
@@ -325,11 +348,14 @@
         if (await this.$refs.localeComponent.validateForm()) {
           this.loading.page = true
           var data=this.$clone(this.locale.form);
-          var features=[];
-          for(var i=0;i<data.features.length;i++){
-            features.push(data.features[i].value);
-          }//for
-          data.features=features;
+          // var features={};
+          // for(var i=0;i<data.features.length;i++){
+          //   features[String(data.features[i].id)]={
+          //     value:data.features[i].value
+          //   }
+          //   // features.push(data.features[i].value);
+          // }//for
+          // data.features=features;
           this.$crud.update(this.configName, this.itemId, data).then(response => {
             this.$alert.success({message: `${this.$tr('ui.message.recordUpdated')}`})
             // this.$router.push({name: 'qsubscription.admin.products.index',

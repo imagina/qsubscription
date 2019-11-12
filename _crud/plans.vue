@@ -11,7 +11,8 @@
           permission: 'suscriptions.plans',
           create: {
             title: this.$tr('qsubscription.layout.newPlan'),
-            // to: 'qsubscription.admin.plans.create',
+            to: 'qsubscription.admin.plans.create',
+            params:{}
           },
           read: {
             columns: [
@@ -76,6 +77,18 @@
                 {label: this.$tr('qsubscription.layout.form.bill_cycles.months'), value: 'month'},
                 {label: this.$tr('qsubscription.layout.form.bill_cycles.years'), value: 'year'},
               ],
+            },
+            features: {
+              label: this.$tr('qsubscription.layout.form.features'),
+              value: null,
+              type: 'select',
+              isRequired: true,
+              multiple: true,
+              isTranslatable: false,
+              loadOptions: {
+                apiRoute: 'apiRoutes.qsubscription.features',
+                select: {label: 'name', id: 'id'}
+              }
             },
 
           },
