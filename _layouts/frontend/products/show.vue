@@ -34,8 +34,13 @@
 
 
                 <div class="list-plan q-subheading" v-for="feature in plan.features">
-                  <i class="fas fa-check text-primary q-pr-md"></i>
-                  {{feature.name}}
+                  <i class="fas fa-check text-primary q-pr-md" v-if="parseInt(feature.type)==2 && feature.value==true"></i>
+                  <i class="fas fa-window-close text-primary q-pr-md" v-else-if="parseInt(feature.type)==2 && feature.value!=true"></i>
+                  <i class="fas fa-check text-primary q-pr-md" v-else-if="parseInt(feature.type)==0"></i>
+                  <i class="fas fa-window-close text-primary q-pr-md" v-else-if="parseInt(feature.type)==1"></i>
+                  <label v-if="parseInt(feature.type)==0">
+                    {{feature.value}}
+                  </label> {{feature.name}}
                 </div>
 
               </q-card-section>
@@ -170,6 +175,24 @@ export default {
     this.$nextTick(function () {
       this.getProduct();
       this.init();
+      /*
+        Get role user autentichated
+        var roles=this.$store.state.quserAuth.userData.roles;
+        var businessRole=0;
+        for (var i=0;i<roles.length;i++){
+          if(roles[i].slug=="business"){
+            //Vendedor
+            businessRole=1;
+            break;
+          }//if role business
+        }//for
+        if(businessRole){
+          //Query axios
+          //If doesn't suscription active, redirect to plans
+          $router.push({name: 'products.show',params:{slug:'tiendas-en-linea'}})
+        }
+      */
+      console.log(this.$store.state.quserAuth);
     })
   },
   data() {

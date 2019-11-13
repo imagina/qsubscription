@@ -26,10 +26,14 @@
                 </h5>
 
                 <div class="list-plan q-subheading" v-for="feature in plan.features">
-                  <i class="fas fa-check text-primary q-pr-md"></i>
-                  {{feature.name}}
+                  <i class="fas fa-check text-primary q-pr-md" v-if="parseInt(feature.type)==2 && feature.value==true"></i>
+                  <i class="fas fa-window-close text-primary q-pr-md" v-else-if="parseInt(feature.type)==2 && feature.value!=true"></i>
+                  <i class="fas fa-check text-primary q-pr-md" v-else-if="parseInt(feature.type)==0"></i>
+                  <i class="fas fa-window-close text-primary q-pr-md" v-else-if="parseInt(feature.type)==1"></i>
+                  <label v-if="parseInt(feature.type)==0">
+                    {{feature.value}}
+                  </label> {{feature.name}}
                 </div>
-
                 <h5 class="font-family-secondary text-primary text-center q-mt-xl q-mb-none" v-show="!plan.free">${{plan.price}} </h5>
 
               </q-card-section>
