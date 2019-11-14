@@ -159,14 +159,13 @@
 import {required} from 'vuelidate/lib/validators'
 import _cloneDeep from 'lodash.clonedeep'
 //Components
-import locales from '@imagina/qsite/_components/locales'
 import mediaForm from '@imagina/qmedia/_components/form'
 import product from '@imagina/qsubscription/_components/frontend/product'
-import captcha from '@imagina/qsite/_components/captcha'
+// import captcha from '@imagina/qsite/_components/captcha'
 
 export default {
   props: {},
-  components: {locales, mediaForm,product,captcha},
+  components: { mediaForm,product},
   watch: {},
   validations() {
     return {}

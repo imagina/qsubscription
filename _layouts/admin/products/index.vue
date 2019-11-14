@@ -6,17 +6,9 @@
   </div>
 </template>
 <script>
-//Plugins
-import {required} from 'vuelidate/lib/validators'
-import {gmaps} from '@imagina/qplace/_plugins/gmaps'
-//Components
-import locales from '@imagina/qsite/_components/locales'
-import mediaForm from '@imagina/qmedia/_components/form'
-import recursiveList from 'src/components/master/recursiveListSelect'
-import schedulesForm from 'src/components/master/schedules'
+
   export default {
     props: {},
-    components: {locales, mediaForm, recursiveList, schedulesForm},
     validations() {
       return {}
     },
@@ -41,9 +33,6 @@ import schedulesForm from 'src/components/master/schedules'
           fieldsTranslatable: {
             name: '',
             description: ''
-          },
-          validations: {
-            name: {required}
           }
         },
         editorText: {

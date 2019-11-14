@@ -94,13 +94,13 @@
 </template>
 <script>
   //Components
-  import locales from '@imagina/qsite/_components/locales'
+  // import locales from '@imagina/qsite/_components/locales'
   import recursiveList from 'src/components/master/recursiveListSelect'
   import schedulesForm from 'src/components/master/schedules'
 
   export default {
     props: {},
-    components: {locales, recursiveList, schedulesForm},
+    components: { recursiveList, schedulesForm},
     mounted() {
       this.$nextTick(function () {
         this.init()

@@ -110,17 +110,30 @@
                 :rules="[val => !!val || $tr('ui.message.fieldRequired')]"
                 :label="feature.name"/>
                 <q-checkbox v-model="feature.value" left-label :label="feature.name" v-if="feature.type==2"/>
-
               </div>
-
-              <div v-else>
-
+              <div v-if="!itemId">
                 <q-select
+                filled
                 multiple
+                emit-value
+                map-options
                 v-model="locale.formTemplate.features"
                 :options="featuresOptions"
-                />
-
+                >
+                <template v-slot:option="scope">
+                  <q-item
+                  v-bind="scope.itemProps"
+                  v-on="scope.itemEvents"
+                  >
+                  <q-item-section>
+                    <q-item-label v-html="scope.opt.label" ></q-item-label>
+                  </q-item-section>
+                  <q-item-section side>
+                    <q-toggle v-model="locale.formTemplate.features" :val="scope.opt.value" />
+                  </q-item-section>
+                </q-item>
+                </template>
+                </q-select>
               </div>
 
 
@@ -165,16 +178,19 @@
 </template>
 <script>
   //Components
-  import locales from '@imagina/qsite/_components/locales'
+  // import locales from '@imagina/qsite/_components/locales'
   import recursiveList from 'src/components/master/recursiveListSelect'
   import schedulesForm from 'src/components/master/schedules'
   import uploadMedia from '@imagina/qmedia/_components/form'
 
   export default {
-    components: {locales, recursiveList, schedulesForm,uploadMedia},
+    components: { recursiveList, schedulesForm,uploadMedia},
     mounted() {
       this.$nextTick(function () {
         this.init();
+        console.log('asdadad');
+        console.log(this.$route.params);
+        console.log(this.productId);
       })
     },
     data() {
@@ -183,6 +199,7 @@
           page: false
         },
         configName: 'apiRoutes.qsubscription.plans',
+        productId:this.$route.params.productId,
         itemId: false,
         featuresOptions:[],
         features:[],
@@ -251,10 +268,16 @@
     methods: {
       //Init
       async init() {
+
         //Search id in params URL
         if (this.$route.params.id) this.itemId = this.$route.params.id
         if (this.itemId) await this.getData()//Get data if is edit
-
+        //Request
+        this.$crud.index("apiRoutes.qsubscription.features").then(response => {
+          for(var i=0;i<response.data.length;i++){
+            this.featuresOptions.push({label: response.data[i].name , id: response.data[i].id, value: response.data[i].id})
+          }
+        })
         //Set default button action
         this.buttonActions = {label: this.optionsFields.btn.saveAndReturn, value: 1}
       },
@@ -292,12 +315,6 @@
               this.loading.page = false
               reject(false)//Resolve
             })
-            //Request
-            this.$crud.index("apiRoutes.qsubscription.features").then(response => {
-              for(var i=0;i<response.data.length;i++){
-                this.featuresOptions.push({label: response.data[i].name , id: response.data[i].id, value: response.data[i].id})
-              }
-            })
           } else {
             resolve(true)//Resolve
           }
@@ -309,11 +326,12 @@
         if (await this.$refs.localeComponent.validateForm()) {
           this.loading.page = true
           var data=this.$clone(this.locale.form);
-          var features=[];
-          for(var i=0;i<data.features.length;i++){
-            features.push(data.features[i].value);
-          }//for
-          data.features=features;
+          // var features=[];
+          // for(var i=0;i<data.features.length;i++){
+          //   features.push(data.features[i].value);
+          // }//for
+          // data.features=features;
+          data.productId=this.productId;
           this.$crud.create(this.configName, data).then(response => {
             this.$alert.success({message: `${this.$tr('ui.message.recordCreated')}`})
             this.actionAfterCreated()
@@ -333,7 +351,7 @@
             case 1://redirect to index plans
               this.$router.push({
                 name: 'qsubscription.admin.plans.index',
-                params:{ id : this.$route.params.id}
+                params:{ id : this.$route.params.productId}
               })
               break;
             case 3://Reset and init form

@@ -175,11 +175,10 @@
 //Plugins
 import {required} from 'vuelidate/lib/validators'
 //Components
-import locales from '@imagina/qsite/_components/locales'
 import mediaForm from '@imagina/qmedia/_components/form'
 export default {
   props: {},
-  components: {locales, mediaForm,},
+  components: { mediaForm},
   watch: {},
   validations() {
     return {}

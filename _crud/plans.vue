@@ -12,7 +12,9 @@
           create: {
             title: this.$tr('qsubscription.layout.newPlan'),
             to: 'qsubscription.admin.plans.create',
-            params:{}
+            params:{
+              productId: this.$route.params.id
+            }
           },
           read: {
             columns: [

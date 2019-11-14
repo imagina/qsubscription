@@ -47,7 +47,7 @@ export default {
     plansCreate: {
     permission: 'suscriptions.plans.create',
     activated: true,
-    path: '/suscriptions/plans/create',
+    path: '/suscriptions/plans/create/:productId',
     name: 'qsubscription.admin.plans.create',
     page: () => import('@imagina/qsubscription/_layouts/admin/plans/form'),
     layout: () => import('src/layouts/master'),
