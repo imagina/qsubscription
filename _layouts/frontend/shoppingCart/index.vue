@@ -1,21 +1,29 @@
 <template>
   <div id="pageId" class="bg-fondo q-px-sm q-py-xl">
+    <div class="q-container">
+      <div class="row justify-end">
+        <div class="col-auto text-center q-mb-lg">
+          <q-breadcrumbs>
+            <q-breadcrumbs-el label="Inicio"  to="/" />
+            <q-breadcrumbs-el :label="$tr('qsubscription.layout.form.checkout.finalizePurchase')"/>
+          </q-breadcrumbs>
+        </div>
+      </div>
 
-    <div class="relative-position q-mb-lg backend-page">
 
-      <div class="row">
-        <div class="col-sm-1"></div>
+      <div class="row q-col-gutter-lg">
+        <div class="col-12">
+          <div class="text-h5 font-family-secondary">
+            {{$tr('qsubscription.sidebar.shoppingCart')}}
+          </div>
+        </div>
 
         <!-- LEFT SIDE -->
-        <div class="col-sm-7 q-mt-sm q-mb-sm">
+        <div class="col-sm-12 col-md-7 col-lg-8 q-mb-sm">
 
-          <div class="row" v-if="plan">
+          <div v-if="plan">
 
-            <!-- Shopping cart -->
-            <div class="col-12 q-mt-sm q-mb-sm">
-              <span class="">
-                {{$tr('qsubscription.sidebar.shoppingCart')}}
-              </span>
+            <!-- Shopping cart -->         
               <q-card class="q-mt-sm rounded-sm my-card">
                 <q-card-section>
 
@@ -24,10 +32,10 @@
                       <img :src="plan.mainImage.path" class=" q-mx-sm" style="max-width:96%;height:auto;">
                     </div>
                     <div class="col-4">
-                      <p class="text-primary q-mt-sm q-mx-sm q-title">{{plan.name}}</p>
+                      <p class="text-primary q-mt-sm q-mx-sm font-family-secondary">{{plan.name}}</p>
                       <p class="q-mx-sm">{{plan.description}}</p>
                       <!-- <p class="q-mx-sm">{{plan.frequency}} {{plan.billCycleText}}</p> -->
-                      <p class="q-my-md q-mx-sm text-primary">$ {{plan.price}}</p>
+                      <p class="q-my-md q-mx-sm text-primary font-family-secondary">$ {{plan.price}}</p>
                     </div>
                     <div class="col-3 text-center">
 
@@ -51,16 +59,14 @@
 
                 </q-card-section>
               </q-card>
-            </div>
+            
 
           </div>
 
         </div>
 
-        <div class="col-sm-1"></div>
-
         <!-- RIGHT SIDE -->
-        <div class="col-sm-2" >
+        <div class="col-sm-12 col-md-5 col-lg-4" >
 
 
           <q-card class="q-mt-sm  rounded-sm my-card">
@@ -70,12 +76,12 @@
 
             <q-card-section>
 
-              <div class="row q-my-md" v-if="plan">
+              <div class="row items-center q-my-md" v-if="plan">
 
                 <!-- 1° Line -->
                 <div class="col-12 text-center">
 
-                  <span class="q-title">
+                  <span class="text-h5 font-family-secondary text-primary">
                     {{$tr('qsubscription.sidebar.summaryOrder')}}
                   </span>
 
@@ -83,12 +89,12 @@
 
                 </div>
 
-                <div class="col-6 text-left q-mt-sm">
-                  <p class="q-title">Subtotal</p>
+                <div class="col-6 text-left">
+                  <p class="q-title q-my-sm">Subtotal</p>
                 </div>
 
-                <div class="col-6 text-right q-mt-sm" v-if="plan">
-                  <p class="q-title">$ {{plan.price*quantity}}</p>
+                <div class="col-6 text-right" v-if="plan">
+                  <p class="q-title q-my-sm">$ {{plan.price*quantity}}</p>
                 </div>
 
                 <!-- 5° Line -->
@@ -96,12 +102,12 @@
                   <hr>
                 </div>
 
-                <div class="col-6 text-left text-primary q-mt-md">
-                  <p class="q-title">TOTAL</p>
+                <div class="col-6 text-left text-primary">
+                  <p class="q-title q-my-sm">TOTAL</p>
                 </div>
 
-                <div class="col-6 text-right text-primary q-mt-md">
-                  <p class="q-title">$ {{plan.price*quantity}}</p>
+                <div class="col-6 text-right text-primary">
+                  <p class="q-title q-my-sm">$ {{plan.price*quantity}}</p>
                 </div>
 
               </div>
@@ -110,8 +116,8 @@
           </q-card>
 
           <div class="q-my-lg text-center">
-            <q-btn @click="$router.push({ name: 'subscriptions.checkout', params: { planId: planId,quantity:quantity }})" style="border-radius: 10px;border-color:black;border-style:solid;"
-            class="capitalize text-weight-bold full-width" color="primary"
+            <q-btn @click="$router.push({ name: 'subscriptions.checkout', params: { planId: planId,quantity:quantity }})"
+            class="capitalize text-weight-bold full-width rounded-sm" size="lg" color="primary"
             :label="$tr('qsubscription.layout.form.checkout.processPurchase')" />
 
           </div>
@@ -122,6 +128,10 @@
 
 
       </div>
+
+    </div>
+    <div class="relative-position q-mb-lg backend-page">
+
 
 
     </div>

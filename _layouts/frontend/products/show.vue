@@ -17,9 +17,9 @@
         </div>
         <div class="row q-mb-xl stairs">
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 q-mb-xl step" v-for="(plan,index) in product.plans" :style="{ marginTop: (index+5) + '0px' }">
-            <q-card class="rounded-sm bg-white plan relative-position w-100 h-100 my-card">
+            <q-card class="rounded-sm bg-white plan relative-position full-width full-height my-card">
 
-              <div class="bg-degradado text-right" style="height: 20px;">
+              <div class="bg-degradado text-right q-card-title">
                 <img class="img-title" :src="plan.mainImage.path" alt="plan">
               </div>
 
@@ -44,9 +44,9 @@
                 </div>
 
               </q-card-section>
-              <q-separator />
+             
               <q-card-actions class="bg-degradado font-family-secondary">
-                <div class="row items-center w-100">
+                <div class="row items-center full-width">
                 <div class="col-6 text-center  text-white">
                     {{plan.price}} - {{plan.frequency}} {{plan.billCycleText}}
                 </div>
@@ -78,7 +78,7 @@
      <div class="bg-degradado modal-subscription shadow-2 rounded-md q-my-xl">
        <div class="row items-center">
          <div class="col-md-4 q-pa-xl">
-           <img :src="logo" :alt="projectName" class="w-100">
+           <img :src="logo" :alt="projectName" class="full-width">
          </div>
          <div class="col-md-8">
            <div class="form-general bg-white form rounded-md line-primary border-primary q-pa-xl">
@@ -127,7 +127,7 @@
 
              <!-- text -->
              <div class="q-body-2 line-text text-center q-mb-lg">
-               <hr class="line-grey q-my-none w-100">
+               <hr class="line-grey q-my-none full-width">
                <span class="bg-white q-px-lg">O ingresa por medio de tu red social </span>
              </div>
 
