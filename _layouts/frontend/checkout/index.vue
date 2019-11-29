@@ -4,89 +4,27 @@
     <div class="bg-fondo q-px-sm q-py-xl">
       <div class="q-container">
         <div class="row justify-end">
-          <div class="col-auto text-center q-my-lg">
+          <div class="col-auto text-center q-mb-lg">
             <q-breadcrumbs>
               <q-breadcrumbs-el label="Inicio"  to="/" />
               <q-breadcrumbs-el :label="$tr('qsubscription.layout.form.checkout.finalizePurchase')"/>
             </q-breadcrumbs>
           </div>
         </div>
-        <!-- Shipping info -->
-<!--
+
         <div class="row">
           <div class="col-12">
-            <h5 class="q-ma-md text-secondary font-family-secondary"><i class="fas fa-truck text-primary"></i>
-              {{$tr('qsubscription.layout.form.checkout.shippingInformation')}}
-            </h5>
-          </div>
-        </div> -->
-
-        <div class="row gutter-lg">
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
-
-            <!-- Shipping info -->
-            <!-- <q-card class="rounded-sm bg-white q-mb-xl">
-
-              <q-card-main class="q-pa-xl form-general">
-
-                <div class="row gutter-md justify-center">
-                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-6">
-
-                    <q-field class="q-mb-xl">
-                      <p class="caption q-mb-sm">{{$tr('ui.form.name')}}</p>
-                      <q-input type="text" v-model="name" placeholder="Emelis" />
-                    </q-field>
-                    <q-field class="q-mb-xl">
-                      <p class="caption q-mb-sm">{{$tr('ui.form.phone')}}</p>
-                      <q-input type="text" v-model="phone" placeholder="+00 00 00" />
-                    </q-field>
-                    <q-field class="q-mb-xl">
-                      <p class="caption q-mb-sm">{{$tr('qsubscription.layout.form.checkout.cityResidence')}}</p>
-                      <q-select
-                        v-model="city_id"
-                        :options="cities"
-                      />
-                    </q-field>
-                  </div>
-                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-6">
-                    <q-field class="q-mb-xl">
-                      <p class="caption q-mb-sm">{{$tr('ui.form.lastName')}}</p>
-                       <q-input type="text" v-model="lastName" placeholder="Gonzalez" />
-                    </q-field>
-
-                    <q-field class="q-mb-xl">
-                      <p class="caption q-mb-sm">{{$tr('ui.form.email')}}</p>
-                       <q-input type="email" v-model="email" placeholder="info@lorem.com" />
-                    </q-field>
-
-                    <q-field class="q-mb-xl">
-                      <p class="caption q-mb-none">{{$tr('ui.form.address')}}</p>
-                       <q-input type="text" v-model="address" stack-label="(Para la entrega de productos adquiridos)" placeholder="Lorem ipsom" />
-                    </q-field>
-
-                  </div>
-
-                  <div class="col-xs-12 col-sm-6 text-center">
-                    <q-btn outline size="lg" class="rounded-md" no-caps icon="fa fa-truck text-primary" :label="$tr('qsubscription.layout.form.checkout.homeDelivery')" />
-                  </div>
-                  <div class="col-xs-12 col-sm-6 text-center">
-                      <q-btn outline size="lg" class="rounded-md" no-caps icon="fa fa-shopping-basket text-primary" :label="$tr('qsubscription.layout.form.checkout.storePickup')" />
-                  </div>
-
-                </div>
-              </q-card-main>
-
-            </q-card> -->
-
-            <!-- Shipping info -->
-
-
-
             <h5 class="q-ma-md text-secondary font-family-secondary">
                 <i class="fas fa-credit-card text-primary"></i>
                 {{$tr('qsubscription.layout.form.checkout.paymentMethods')}}
             </h5>
+          </div>
+        </div>
+        <div class="row q-col-gutter-lg">
 
+          <div class="col-sm-12 col-md-7 col-lg-8 q-mb-sm">
+            <!-- Shipping info -->
+            
             <q-card class="rounded-sm bg-white q-mb-xl">
 
               <q-card-section class="q-pa-xl form-general">
@@ -143,16 +81,16 @@
 
               <q-card-section>
 
-                <div class="row gutter-sm">
+                <div class="row q-col-gutter-sm">
                   <div class="col-xs-5 col-sm-2 col-md-2">
-                    <div class="ratio-1" style="border: 2px solid #ccc;">
-                      <img :src="plan.mainImage.path" :alt="plan.name" class="responsive">
+                    <div style="border: 2px solid #ccc;">
+                      <q-img :ratio="1" :src="plan.mainImage.path" :alt="plan.name" />
                     </div>
                   </div>
                   <div class="col-xs-7 col-sm-6 col-md-6">
                     <h6 class="text-primary font-family-secondary q-mt-sm q-mb-none">{{plan.name}}</h6>
                     <div class="q-body-1 text-secondary q-mb-lg">{{plan.description}}</div>
-                    <div class="q-subheading text-primary text-weight-bold q-mb-lg">$ {{plan.price}}</div>
+                    <div class="q-subheading text-primary text-bold q-mb-lg">$ {{plan.price}}</div>
                     <!-- <div class="q-body-1 text-secondary q-mb-sm">Enviado y Vendido por Lorem Ipsum</div> -->
                   </div>
                   <div class="col-xs-11 col-sm-3 col-lg-3 self-center">
@@ -164,7 +102,6 @@
                         <tree-select
                           :clearable="false"
                           :append-to-body="true"
-                          class="q-mb-md"
                           :options="selectOptions"
                           value-consists-of="BRANCH_PRIORITY"
                           v-model="quantity"
@@ -199,7 +136,7 @@
 
             <div class="row" v-if="plan">
               <div class="col-12 text-right">
-                <h6 class="text-weight-bold q-my-lg">
+                <h6 class="text-bold q-my-lg">
                     TOTAL
                     <span class="text-primary q-pl-md">$ {{plan.price*quantity}}</span>
                 </h6>
@@ -217,7 +154,7 @@
             <q-card class="rounded-sm bg-white plan" v-if="plan">
               <q-card-section style="color: #333333;">
               <q-btn size="lg" @click="submit()"
-                class="capitalize text-weight-bold full-width rounded-sm q-mb-md" color="primary"
+                class="capitalize text-bold full-width rounded-sm q-mb-md" color="primary"
                 :label="$tr('qsubscription.layout.form.checkout.finalizePurchase')" />
                 <hr class="line-grey">
                 <div class="row">
