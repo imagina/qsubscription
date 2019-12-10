@@ -41,25 +41,31 @@
             id: {value: ''},
             productId: {value: this.$route.params.id},
             name: {
-              label: this.$tr('ui.form.name'),
               value: '',
-              type: 'text',
-              rules: [
-                val => !!val || this.$tr('ui.message.fieldRequired')
-              ],
+              type: 'input',
               isTranslatable: true,
+              props:{
+                label: this.$tr('ui.form.name'),
+                rules: [
+                  val => !!val || this.$tr('ui.message.fieldRequired')
+                ],
+              }
             },
             caption: {
-              label: this.$tr('qsubscription.layout.form.caption'),
               value: '',
-              type: 'text',
-              rules: [
-                val => !!val || this.$tr('ui.message.fieldRequired')
-              ],
+              type: 'input',
+              props:{
+                label: this.$tr('qsubscription.layout.form.caption'),
+                rules: [
+                  val => !!val || this.$tr('ui.message.fieldRequired')
+                ],
+              },
               isTranslatable: true,
             },
             description: {
-              label: this.$tr('ui.form.description'),
+              props:{
+                label: this.$tr('ui.form.description'),
+              },
               value: '',
               type: 'html',
               isRequired: false,
@@ -70,32 +76,38 @@
           formRight: {
 
             status : {
-              label: `${this.$tr('ui.form.status')}:`,
+              props:{
+                label: `${this.$tr('ui.form.status')}:`,
+                options: [
+                  {label: this.$tr('ui.label.enabled'), value: '1'},
+                  {label: this.$tr('ui.label.disabled'), value: '0'},
+                ],
+              },
               value: '1',
               type: 'select',
-              options: [
-                {label: this.$tr('ui.label.enabled'), value: '1'},
-                {label: this.$tr('ui.label.disabled'), value: '0'},
-              ],
             },
 
             type: {
-              label: this.$tr('qsubscription.layout.form.type'),
+              props:{
+                label: this.$tr('qsubscription.layout.form.type'),
+                options: [
+                  {label: this.$tr('qsubscription.layout.form.types.quantity'), value: 0},
+                  {label: this.$tr('qsubscription.layout.form.types.text'), value: 1},
+                  {label: this.$tr('qsubscription.layout.form.types.boolean'), value: 2},
+                ],
+              },
               value: 1,
               type: 'select',
-              options: [
-                {label: this.$tr('qsubscription.layout.form.types.quantity'), value: 0},
-                {label: this.$tr('qsubscription.layout.form.types.text'), value: 1},
-                {label: this.$tr('qsubscription.layout.form.types.boolean'), value: 2},
-              ],
             },
 
             unit: {
-              label: this.$tr('qsubscription.layout.form.unit'),
               value: '',
-              type: 'text',
+              type: 'input',
               isRequired: false,
               isTranslatable: false,
+              props:{
+                label: this.$tr('qsubscription.layout.form.unit'),
+              }
             },
 
           },

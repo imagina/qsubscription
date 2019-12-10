@@ -188,10 +188,7 @@
     mounted() {
       this.$nextTick(function () {
         this.init();
-        console.log('asdadad');
-        console.log(this.$route.params);
-        console.log(this.productId);
-      })
+      });
     },
     data() {
       return {
@@ -199,7 +196,6 @@
           page: false
         },
         configName: 'apiRoutes.qsubscription.plans',
-        productId:this.$route.params.productId,
         itemId: false,
         featuresOptions:[],
         features:[],
@@ -207,6 +203,7 @@
           fields: {
             id: '',
             userId: this.$store.state.quserAuth.userId,
+            productId:this.$route.params.productId,
             recommendation: 0,
             price: 0,
             status: 0,
@@ -331,7 +328,7 @@
           //   features.push(data.features[i].value);
           // }//for
           // data.features=features;
-          data.productId=this.productId;
+          // data.productId=this.productId;
           this.$crud.create(this.configName, data).then(response => {
             this.$alert.success({message: `${this.$tr('ui.message.recordCreated')}`})
             this.actionAfterCreated()

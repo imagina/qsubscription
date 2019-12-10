@@ -11,7 +11,7 @@
           permission: 'suscriptions.products',
           create: {
             title: this.$tr('qsubscription.layout.newProduct'),
-            to: 'qsubscription.admin.products.create',
+             to : {name : 'qsubscription.admin.products.create', params : {}, query : {}}
           },
           read: {
             columns: [
@@ -50,42 +50,50 @@
             id: {value: ''},
             userId: {value: this.$store.state.quserAuth.userId},
             name: {
-              label: this.$tr('ui.form.name'),
               value: '',
-              type: 'text',
-              rules: [
-                val => !!val || this.$tr('ui.message.fieldRequired')
-              ],
+              type: 'input',
               isTranslatable: true,
+              props:{
+                label: this.$tr('ui.form.name'),
+                rules: [
+                  val => !!val || this.$tr('ui.message.fieldRequired')
+                ],
+              }
             },
             slug: {
-              label: this.$tr('ui.form.slug'),
               value: '',
-              type: 'text',
-              rules: [
-                val => !!val || this.$tr('ui.message.fieldRequired')
-              ],
+              type: 'input',
               isTranslatable: true,
+              props:{
+                label: this.$tr('ui.form.slug'),
+                rules: [
+                  val => !!val || this.$tr('ui.message.fieldRequired')
+                ],
+              }
             },
             description: {
-              label: this.$tr('ui.form.description'),
               value: '',
               type: 'html',
               isRequired: false,
               isTranslatable: true,
+              props:{
+                label: this.$tr('ui.form.description'),
+              }
             },
 
           },
           formRight: {
 
             status : {
-              label: `${this.$tr('ui.form.status')}:`,
               value: '1',
               type: 'select',
-              options: [
-                {label: this.$tr('ui.label.enabled'), value: '1'},
-                {label: this.$tr('ui.label.disabled'), value: '0'},
-              ],
+              props:{
+                label: `${this.$tr('ui.form.status')}:`,
+                options: [
+                  {label: this.$tr('ui.label.enabled'), value: '1'},
+                  {label: this.$tr('ui.label.disabled'), value: '0'},
+                ],
+              }
             },
 
           },

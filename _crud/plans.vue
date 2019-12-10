@@ -11,9 +11,12 @@
           permission: 'suscriptions.plans',
           create: {
             title: this.$tr('qsubscription.layout.newPlan'),
-            to: 'qsubscription.admin.plans.create',
-            params:{
-              productId: this.$route.params.id
+            to : {
+              name : 'qsubscription.admin.plans.create',
+              params : {
+                productId: this.$route.params.id
+              },
+              query : {}
             }
           },
           read: {
@@ -36,7 +39,12 @@
           },
           update: {
             title: this.$tr('qsubscription.layout.updatePlan'),
-            to: 'qsubscription.admin.plans.edit',
+            to : 'qsubscription.admin.plans.edit',
+            // to : {
+            //   name : 'qsubscription.admin.plans.edit',
+            //   params : {},
+            //   query : {}
+            // },
             requestParams: {}
           },
           delete: true,
@@ -44,125 +52,159 @@
             id: {value: ''},
             productId: {value: this.$route.params.id},
             name: {
-              label: this.$tr('ui.form.name'),
               value: '',
-              type: 'text',
-              rules: [
-                val => !!val || this.$tr('ui.message.fieldRequired')
-              ],
+              type: 'input',
+              props:{
+                label: this.$tr('ui.form.name'),
+                rules: [
+                  val => !!val || this.$tr('ui.message.fieldRequired')
+                ],
+              },
               isTranslatable: true,
             },
             description: {
-              label: this.$tr('ui.form.description'),
               value: '',
               type: 'html',
-              isRequired: false,
               isTranslatable: true,
+              props:{
+                label: this.$tr('ui.form.description'),
+
+              }
             },
 
             frequency: {
-              label: this.$tr('qsubscription.layout.form.frequency'),
               value: 1,
               type: 'number',
-              rules: [
-                val => !!val || this.$tr('ui.message.fieldRequired')
-              ],
+              props:{
+                label: this.$tr('qsubscription.layout.form.frequency'),
+                rules: [
+                  val => !!val || this.$tr('ui.message.fieldRequired')
+                ],
+              },
               isTranslatable: false,
             },
 
             billCycle: {
-              label: this.$tr('qsubscription.layout.form.bill_cycle'),
               value: 'week',
               type: 'select',
-              options: [
-                {label: this.$tr('qsubscription.layout.form.bill_cycles.weeks'), value: 'week'},
-                {label: this.$tr('qsubscription.layout.form.bill_cycles.months'), value: 'month'},
-                {label: this.$tr('qsubscription.layout.form.bill_cycles.years'), value: 'year'},
-              ],
+              props:{
+                label: this.$tr('qsubscription.layout.form.bill_cycle'),
+                options: [
+                  {label: this.$tr('qsubscription.layout.form.bill_cycles.weeks'), value: 'week'},
+                  {label: this.$tr('qsubscription.layout.form.bill_cycles.months'), value: 'month'},
+                  {label: this.$tr('qsubscription.layout.form.bill_cycles.years'), value: 'year'},
+                ],
+              },
             },
             features: {
-              label: this.$tr('qsubscription.layout.form.features'),
               value: null,
               type: 'select',
-              isRequired: true,
+              // isRequired: true,
               multiple: true,
               isTranslatable: false,
-              loadOptions: {
-                apiRoute: 'apiRoutes.qsubscription.features',
-                select: {label: 'name', id: 'id'}
-              }
+              props:{
+                label: this.$tr('qsubscription.layout.form.features'),
+                rules: [
+                  val => !!val || this.$tr('ui.message.fieldRequired')
+                ],
+                loadOptions: {
+                  apiRoute: 'apiRoutes.qsubscription.features',
+                  select: {label: 'name', id: 'id'}
+                }
+              },
             },
 
           },
           formRight: {
 
             status : {
-              label: `${this.$tr('ui.form.status')}:`,
               value: '1',
               type: 'select',
-              options: [
-                {label: this.$tr('ui.label.enabled'), value: '1'},
-                {label: this.$tr('ui.label.disabled'), value: '0'},
-              ],
+              props:{
+                label: `${this.$tr('ui.form.status')}:`,
+                options: [
+                  {label: this.$tr('ui.label.enabled'), value: '1'},
+                  {label: this.$tr('ui.label.disabled'), value: '0'},
+                ],
+              }
             },
 
             code: {
-              label: this.$tr('qsubscription.layout.form.code'),
               value: '',
-              type: 'text',
+              type: 'input',
               isRequired: false,
               isTranslatable: false,
+              props:{
+                label: this.$tr('qsubscription.layout.form.code'),
+
+              }
             },
 
             displayOrder: {
-              label: this.$tr('qsubscription.layout.form.display_order'),
               value: '',
-              type: 'text',
+              type: 'input',
               isRequired: false,
               isTranslatable: false,
+              props:{
+                label: this.$tr('qsubscription.layout.form.display_order'),
+
+              }
             },
 
             free: {
-              label: this.$tr('qsubscription.layout.form.free'),
               value: '',
               type: 'checkbox',
               isRequired: false,
               isTranslatable: false,
+              props:{
+                label: this.$tr('qsubscription.layout.form.free'),
+
+              }
             },
 
             recommendation: {
-              label: this.$tr('qsubscription.layout.form.recommendation'),
               value: '',
               type: 'checkbox',
               isRequired: false,
               isTranslatable: false,
+              props:{
+                label: this.$tr('qsubscription.layout.form.recommendation'),
+
+              }
             },
 
             visible: {
-              label: this.$tr('qsubscription.layout.form.visible'),
               value: '',
               type: 'checkbox',
               isRequired: false,
               isTranslatable: false,
+              props:{
+                label: this.$tr('qsubscription.layout.form.visible'),
+
+              }
             },
 
             price: {
-              label: this.$tr('qsubscription.layout.form.price'),
               value: 1,
               type: 'number',
-              rules: [
-                val => !!val || this.$tr('ui.message.fieldRequired')
-              ],
+              props:{
+                label: this.$tr('qsubscription.layout.form.price'),
+                rules: [
+                  val => !!val || this.$tr('ui.message.fieldRequired')
+                ],
+              },
               isTranslatable: false,
             },
 
             trialPeriod: {
-              label: this.$tr('qsubscription.layout.form.trial_period'),
+              props:{
+                label: this.$tr('qsubscription.layout.form.trial_period'),
+                rules: [
+                  val => !!val || this.$tr('ui.message.fieldRequired')
+                ],
+              },
               value: 1,
               type: 'number',
-              rules: [
-                val => !!val || this.$tr('ui.message.fieldRequired')
-              ],
               isTranslatable: false,
             },
 
