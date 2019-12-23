@@ -24,7 +24,7 @@
 
           <div class="col-sm-12 col-md-7 col-lg-8 q-mb-sm">
             <!-- Shipping info -->
-            
+
             <q-card class="rounded-sm bg-white q-mb-xl">
 
               <q-card-section class="q-pa-xl form-general">
@@ -225,7 +225,7 @@ export default {
     this.$nextTick(function () {
       this.getPlan();
       this.getPaymentMethods();
-    })
+    });
   },
   data() {
     return {
@@ -313,8 +313,47 @@ export default {
         };
         this.$crud.create("apiRoutes.qsubscription.suscriptions",params).then(response => {
 
-          this.$alert.success({message: this.$tr('qsubscription.messages.success.createSubscription'), pos: 'bottom'})
-          this.$router.push({ name: 'app.home'});
+          this.$alert.success({message: this.$tr('qsubscription.messages.success.createSubscription'), pos: 'bottom'});
+
+          //Update Role
+          var update=false;
+          for(let i=0;i<this.$store.state.quserAuth.userData.roles.length;i++){
+            if(this.$store.state.quserAuth.userData.roles[i].slug=="superadmin"){
+              update=false;
+              break;
+            }else if(this.$store.state.quserAuth.userData.roles[i].slug=="business"){
+              update=false;
+              break;
+            }else{
+              update=true;
+            }
+          }//for
+          if(update){
+            let params={
+              id:this.userId,
+              roles:[
+                8
+              ],
+              activated:1
+            };
+            if(this.planId==3){
+              //Directory
+              params.roles=[11];
+            }else if(this.planId==6){
+              //Free
+              params.roles=[9];
+            }else if(this.planId==7){
+              //Independient
+              params.roles=[10];
+            }
+            this.$crud.update("apiRoutes.quser.users",this.userId,params).then(response => {
+              this.$router.push({ name: 'app.home'});
+            }).catch(error => {
+              this.$alert.error({message: error, pos: 'bottom'})
+            });
+          }//update
+
+
 
         }).catch(error => {
           this.$alert.error({message: error, pos: 'bottom'})

@@ -45,7 +45,7 @@
                   class="font-family-secondary text-white q-btn-end"
                   :loading="loading.page"
                   no-caps
-                  label="Suscribirme" @click="subscribe(0)"
+                  label="Suscribirme" @click="subscribe(plan.id)"
                   />
               </q-card-actions>
 
@@ -130,6 +130,7 @@
     name: "product",
     data(){
       return {
+        userId: this.$store.state.quserAuth.userId,
         logo : this.$store.getters['qsiteSettings/getSettingMediaByName']('isite::logo2').path,
         projectName : "Donde esta esa vaina",
         product: null,
@@ -178,9 +179,10 @@
       },
       subscribe(planId){
         this.loading.page = true;
+        // this.$router.push({ name: 'subscriptions.shopping.cart', params: { planId: planId }});
         if(this.userId){
-          //push to checkout
-          this.$router.push({ name: 'subscriptions.checkout', params: { planId: planId }});
+          //push to shopping cart
+          this.$router.push({ name: 'subscriptions.shopping.cart', params: { planId: planId }});
         }else{
           this.minimizedModal = true
         }
