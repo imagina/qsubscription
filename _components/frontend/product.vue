@@ -30,7 +30,7 @@
                   <i class="fas fa-window-close text-primary q-pr-md" v-else-if="parseInt(feature.type)==2 && feature.value!=true"></i>
                   <i class="fas fa-check text-primary q-pr-md" v-else-if="parseInt(feature.type)==0"></i>
                   <i class="fas fa-window-close text-primary q-pr-md" v-else-if="parseInt(feature.type)==1"></i>
-                  <label v-if="parseInt(feature.type)==0">
+                  <label style="margin-right:4px;" v-if="parseInt(feature.type)==0">
                     {{feature.value}}
                   </label> {{feature.name}}
                 </div>

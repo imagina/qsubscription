@@ -1,10 +1,10 @@
 <template>
   <q-page class="page">
 
-    <div class="bg-fondo q-px-sm q-py-xl">
+    <div class="bg-fondo q-px-sm q-py-s,">
       <div class="q-container">
         <div class="row">
-          <div class="col-12 text-center q-my-lg">
+          <div class="col-12 text-center q-my-sm">
 
             <h4 class="font-family-secondary text-tertiary">{{product.name}}</h4>
             <p class="text-weight-medium" v-html="product.description"></p>
@@ -38,13 +38,16 @@
                   <i class="fas fa-window-close text-primary q-pr-md" v-else-if="parseInt(feature.type)==2 && feature.value!=true"></i>
                   <i class="fas fa-check text-primary q-pr-md" v-else-if="parseInt(feature.type)==0"></i>
                   <i class="fas fa-window-close text-primary q-pr-md" v-else-if="parseInt(feature.type)==1"></i>
-                  <label v-if="parseInt(feature.type)==0">
+                  <label style="margin-right:4px;" v-if="parseInt(feature.type)==0">
                     {{feature.value}}
-                  </label> {{feature.name}}
+                  </label>
+                  <span>
+                    {{feature.name}}
+                  </span>
                 </div>
 
               </q-card-section>
-             
+
               <q-card-actions class="bg-degradado font-family-secondary">
                 <div class="row items-center full-width">
                 <div class="col-6 text-center  text-white">
