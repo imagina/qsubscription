@@ -23,7 +23,7 @@
 
           <div v-if="plan">
 
-            <!-- Shopping cart -->         
+            <!-- Shopping cart -->
               <q-card class="q-mt-sm rounded-sm my-card">
                 <q-card-section>
 
@@ -59,7 +59,7 @@
 
                 </q-card-section>
               </q-card>
-            
+
 
           </div>
 
@@ -254,7 +254,7 @@ export default {
           plan_id:this.planId,
           quantity:this.quantity,
       };
-      this.$crud.create("apiRoutes.qsubscription.suscriptions",params).then(response => {
+      this.$crud.create("apiRoutes.qsubscription.subscriptions",params).then(response => {
 
         this.$alert.success({message: this.$tr('qsubscription.messages.success.createSubscription'), pos: 'bottom'})
         this.$router.push({ name: 'app.home'});
