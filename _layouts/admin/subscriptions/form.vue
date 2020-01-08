@@ -5,16 +5,10 @@
     <div class="relative-position q-mb-lg backend-page">
       <!--Data-->
       <q-form autocorrect="off" autocomplete="off" ref="formContent" class="box"
-      @submit="(!itemId && !field) ? createItem() : updateItem()"
+      @submit="updateItem()"
       @validation-error="$alert.error($tr('ui.message.formInvalid'))">
       <!--Form-->
       <div class="row gutter-x-sm">
-
-           <!--Languages-->
-          <div class="col-12">
-            <locales ref="localeComponent" v-model="locale" :form="$refs.formContent"/>
-          </div>
-
           <!---Form Left-->
           <div class="col-12 col-md-8" v-if="locale.success">
 

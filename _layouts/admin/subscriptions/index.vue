@@ -66,7 +66,7 @@
                   </div>
                   <div class="col-auto">
                     <q-btn v-if="!item.isRead" dense round icon="fas fa-eye" class="q-mr-sm q-pa-xs"
-                           size="10px" color="primary" @click="updateNotification(item.id)"/>
+                           size="10px" color="primary" :to="{name:'qsubscription.admin.subscription.edit',params:{'id':item.id}}"/>
                     <q-btn dense round icon="fas fa-trash-alt" class="q-mr-sm q-pa-xs" size="10px"
                            color="primary" v-if="$auth.hasAccess('marketplace.notification.destroy')"
                            @click="deleteNotification(item.id)"/>
