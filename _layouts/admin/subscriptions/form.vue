@@ -1,258 +1,260 @@
 <template>
-  <div id="adminProductsFrom">
-    <q-no-ssr>
-    <!--Content-->
-    <div class="relative-position q-mb-lg backend-page">
-      <!--Data-->
-      <q-form autocorrect="off" autocomplete="off" ref="formContent" class="box"
-      @submit="updateItem()"
-      @validation-error="$alert.error($tr('ui.message.formInvalid'))">
-      <!--Form-->
-      <div class="row gutter-x-sm">
-          <!---Form Left-->
-          <div class="col-12 col-md-8" v-if="locale.success">
+   <div id="adminProductsFrom">
+      <q-no-ssr>
+         <!--Content-->
+         <div class="relative-position q-mb-lg backend-page">
+            <!--Data-->
+            <q-form @submit="updateItem" ref="formRegister" class="box relative-position" autocomplete="off"
+                    @validation-error="$alert.error($tr('ui.message.formInvalid'))">
+               <div class="row gutter-x-sm">
+                  <div class="col-12 col-md-8 q-pa-lg">
+                     <q-select outlined
+                               v-model="form.userId"
+                               :options="userOptions"
+                               option-label="label"
+                               dense
+                               emit-value
+                               map-options
+                               label="Usuario"/>
 
-            <!--name-->
-            <q-input v-model="locale.formTemplate.name" @input="setSlug()" outlined dense
-                     :rules="[val => !!val || $tr('ui.message.fieldRequired')]"
-                     :label="`${$tr('ui.form.name')} (${locale.language})*`"/>
+                     <q-input dense mask="date"
+                              v-model="form.initDate"
+                              color="primary"
+                              label="Fecha de Inicio"
+                              outlined placeholder="YYYY/MM/DD">
+                        <template v-slot:append>
+                           <q-icon name="fas fa-calendar-day"/>
+                           <q-popup-proxy
+                                   ref="qDateProxy"
+                                   transition-show="scale"
+                                   transition-hide="scale"
+                           >
+                              <q-date
+                                      v-model="form.initDate"
+                                      @input="() => $refs.qDateProxy.hide()"
+                              />
+                           </q-popup-proxy>
+                        </template>
+                     </q-input>
+                     <q-input dense
+                              mask="date"
+                              v-model="form.endDate"
+                              color="primary"
+                              label="Fecha de Renovaciòn"
+                              outlined
+                              placeholder="YYYY/MM/DD">
+                        <template v-slot:append>
+                           <q-icon name="fas fa-calendar-day"/>
+                           <q-popup-proxy
+                                   ref="qDateProxy"
+                                   transition-show="scale"
+                                   transition-hide="scale"
+                           >
+                              <q-date
+                                      v-model="form.endDate"
+                                      @input="() => $refs.qDateProxy.hide()"
+                              />
+                           </q-popup-proxy>
+                        </template>
+                     </q-input>
+                  </div>
+                  <div class="col-12 col-md-4 q-pa-lg">
+                     <q-select outlined
+                               v-model="product"
+                               :options="productOptions"
+                               option-label="label"
+                               dense
+                               emit-value
+                               map-options
+                               @input="getPlans(product)"
+                               label="Paquete"/>
+                     <q-select outlined
+                               v-model="form.planId"
+                               :options="planOptions"
+                               option-label="label"
+                               dense
+                               emit-value
+                               map-options
+                               label="Plan"/>
+                     <q-input
+                             prefix="$"
+                             v-model="value"
+                             outlined
+                             dense
+                             label="Valor"
+                             readonly
+                     />
+                     <q-toggle
+                             v-model="form.active"
+                             checked-icon="check"
+                             color="green"
+                             label="Activo"
+                             unchecked-icon="clear"
+                     />
 
-            <!--Slug-->
-            <q-input v-model="locale.formTemplate.slug" outlined dense
-            :rules="[val => !!val || $tr('ui.message.fieldRequired')]"
-            :label="`${$tr('ui.form.slug')} (${locale.language})*`"/>
+                  </div>
+                  <!--Update button-->
+                  <div class="text-right q-mt-sm q-pa-lg">
+                     <q-btn color="positive" :loading="loading" type="submit"
+                            icon="fas fa-save" :label="$tr('ui.label.save')"/>
+                  </div>
+                  <!--Inner loafing-->
+                  <inner-loading :visible="loading"/>
+               </div>
+            </q-form>
+         </div>
+      </q-no-ssr>
 
-            <!--Description-->
-            <div class="input-title">{{`${$tr('ui.form.description')} (${locale.language})*`}}</div>
-            <q-field v-model="locale.formTemplate.description" borderless
-                     :rules="[val => !!val || $tr('ui.message.fieldRequired')]">
-              <q-editor v-model="locale.formTemplate.description" class="full-width"
-                        :toolbar="editorText.toolbar" content-class="text-grey-9" toolbar-text-color="grey-9"/>
-            </q-field>
-
-          </div>
-
-          <!---Form Right-->
-          <div class="col-12 col-md-4" v-if="locale.success">
-
-            <!--Status-->
-            <div class="input-title">{{`${$tr('ui.form.status')}`}}</div>
-            <tree-select
-              :clearable="false"
-              :append-to-body="true"
-              class="q-mb-md"
-              :options="optionsFields.status"
-              value-consists-of="BRANCH_PRIORITY"
-              v-model="locale.formTemplate.status"
-              placeholder=""
-            />
-
-
-          </div>
-
-
-        </div>
-
-      <!--Buttons Actions-->
-      <q-page-sticky position="bottom-right" :offset="[18, 18]">
-        <!--Update button-->
-        <q-btn
-          v-if="itemId"
-          color="positive" :loading="loading.page"
-          icon="fas fa-edit" :label="$tr('ui.label.update')" @click="updateItem()"
-        />
-        <!--Save button-->
-        <q-btn-dropdown :label="buttonActions.label" split v-else :loading="loading.app"
-                        content-style="min-width: 250px !important"
-                        color="positive" icon="fas fa-save" @click="createItem()" rounded align="right">
-          <q-list link>
-            <q-item @click.native="buttonActions = {label : optionsFields.btn.saveAndReturn, value : 1}"
-                    v-close-overlay>
-              {{optionsFields.btn.saveAndReturn}}
-            </q-item>
-            <q-item @click.native="buttonActions = {label : optionsFields.btn.saveAndCreate, value : 3}"
-                    v-close-overlay>
-              {{optionsFields.btn.saveAndCreate}}
-            </q-item>
-          </q-list>
-        </q-btn-dropdown>
-      </q-page-sticky>
-      </q-form>
-
-      <!--Loading-->
-      <inner-loading :visible="loading.page"/>
-    </div>
-  </q-no-ssr>
-
-  </div>
+   </div>
 </template>
 <script>
-  //Components
-  import recursiveList from 'src/components/master/recursiveListSelect'
-  import schedulesForm from 'src/components/master/schedules'
+   //Components
+   import recursiveList from 'src/components/master/recursiveListSelect'
+   import schedulesForm from 'src/components/master/schedules'
 
-  export default {
-    props: {},
-    components: { recursiveList, schedulesForm},
-    watch: {},
-    mounted() {
-      this.$nextTick(function () {
-        this.init()
-      })
-    },
-    data() {
-      return {
-        loading: {
-          page: false
-        },
-        configName: 'apiRoutes.qsubscription.products',
-        itemId: false,
-        locale: {
-          fields: {
-            id: '',
-            userId: this.$store.state.quserAuth.userId,
-            status: 0
-          },
-          fieldsTranslatable: {
-            name: '',
-            slug: '',
-            description: ''
-          }
-        },
-        editorText: {
-          toolbar: [
-            ['bold', 'italic', 'strike', 'underline', 'removeFormat'],
-            ['link'],
-            [
-              {
-                label: 'Font Size',
-                icon: 'format_size',
-                fixedLabel: true,
-                fixedIcon: true,
-                list: 'no-icons',
-                options: ['size-1', 'size-2', 'size-3', 'size-4', 'size-5', 'size-6', 'size-7']
-              }
-            ],
-            ['quote', 'unordered', 'ordered'],
-            ['fullscreen']
-          ]
-        },
-        buttonActions: {}
-      }
-    },
-    computed: {
-      //Options translatables
-      optionsFields() {
-        return {
-          status: [
-            {label: this.$tr('ui.label.enabled'), id: 1,value:1},
-            {label: this.$tr('ui.label.disabled'), id: 0,value:0}
-          ],
-          btn: {
-            saveAndReturn: this.$tr('ui.message.saveAndReturn'),
-            saveAndCreate: this.$tr('ui.message.saveAndCreate'),
-          }
-        }
+   export default {
+      props: {},
+      components: {recursiveList, schedulesForm},
+      watch: {},
+      mounted() {
+         this.$nextTick(function () {
+            this.init()
+         })
       },
-    },
-    methods: {
-      //Init
-      async init() {
-        //Search id in params URL
-        if (this.$route.params.id) this.itemId = this.$route.params.id
-        if (this.itemId) await this.getData()//Get data if is edit
-
-        //Set default button action
-        this.buttonActions = {label: this.optionsFields.btn.saveAndReturn, value: 1}
-
+      data() {
+         return {
+            loading: false,
+            success: false,
+            form: {
+               firstName: null,
+               lastName: null,
+               email: null,
+               fields: {}
+            },
+            product: null,
+            value:null,
+            userOptions: [],
+            productOptions: [],
+            planOptions: [],
+         }
       },
-      //Get data item
-      getData() {
-        return new Promise((resolve, reject) => {
-          this.loading.page = true
-          const itemId = this.$clone(this.itemId)
+      computed: {},
+      methods: {
+         //Init
+         async init() {
+            //Search id in params URL
+            await this.getUser()
+            await this.getData().catch(error => {
+               console.error('Get subscription ' + error)
+            })//Get data if is edit
+            await this.getProducts()
+         },
+         //Get data item
+         getData() {
+            return new Promise((resolve, reject) => {
+               this.loading = true
+               const itemId = this.$route.params.id
+               if (itemId) {
+                  //Params
+                  let params = {
+                     refresh: true,
+                     params: {
+                        include: 'user,plan',
+                        filter: {allTranslations: true}
+                     }
+                  }
+                  //Request
+                  this.$crud.show('apiRoutes.qsubscription.subscriptions', itemId, params).then(response => {
+                     this.form = this.$clone(response.data);
+                     if (this.form.userId) this.form.userId = {
+                        label: this.$clone(this.form.user.fullName),
+                        id: this.$clone(this.form.user.id)
+                     }
+                     if (this.form.planId) {
+                        this.form.planId = {
+                           label: this.$clone(this.form.plan.name),
+                           id: this.$clone(this.form.plan.id)
+                        }
+                        this.product = {
+                           label: this.$clone(this.form.plan.product.name),
+                           id: this.$clone(this.form.plan.product.id)
+                        }
+                        this.value=this.$n(this.form.plan.price)
+                     }
 
-          if (itemId) {
-            //Params
+                     this.loading = false;
+                     resolve(true)//Resolve
+                  }).catch(error => {
+                     this.$alert.error({message: this.$tr('ui.message.errorRequest'), pos: 'bottom'})
+                     this.loading = false
+                     reject(false)//Resolve
+                  })
+               } else {
+                  resolve(true)//Resolve
+               }
+
+            })
+         },
+         //Update Product
+         async updateItem() {
+            if (await this.$refs.localeComponent.validateForm()) {
+               this.loading.page = true
+               this.$crud.update(this.configName, this.itemId, this.locale.form).then(response => {
+                  this.$alert.success({message: `${this.$tr('ui.message.recordUpdated')}`})
+                  this.$router.push({name: 'qsubscription.admin.products.index'})//Redirect to index
+                  this.loading.page = false
+               }).catch(error => {
+                  this.loading.page = false
+                  this.$alert.error({message: this.$tr('ui.message.recordNoUpdated'), pos: 'bottom'})
+               })
+            } else {
+               this.$alert.error({message: this.$tr('ui.message.formInvalid'), pos: 'bottom'})
+            }
+         },
+         getUser() {
             let params = {
-              refresh: true,
-              params: {
-                include: '',
-                filter: {allTranslations: true}
-              }
+               remember: false,
+               params: {filter: {search: this.search}}
+            };//params
+            this.$crud.index("apiRoutes.quser.users", params).then(response => {
+               this.userOptions = this.$array.select(response.data, {label: 'fullName', id: 'id'});
+            });
+         },
+         getProducts(){
+            let params = {
+               refresh: true,
+               params: {
+                  include:'',
+               }
             }
             //Request
-            this.$crud.show(this.configName, itemId, params).then(response => {
-              this.locale.form = this.$clone(response.data);
-              this.loading.page = false;
-              resolve(true)//Resolve
+            this.$crud.index('apiRoutes.qsubscription.products', params).then(response => {
+               this.productOptions = this.$array.select(response.data, {label: 'name', id: 'id'});
             }).catch(error => {
-              this.$alert.error({message: this.$tr('ui.message.errorRequest'), pos: 'bottom'})
-              this.loading.page = false
-              reject(false)//Resolve
+               this.$alert.error({message: this.$tr('ui.message.errorRequest'), pos: 'bottom'})
+               this.loading = false
             })
-          } else {
-            resolve(true)//Resolve
-          }
-
-        })
-      },
-      //Create Product
-      async createItem() {
-        if (await this.$refs.localeComponent.validateForm()) {
-          this.loading.page = true
-          this.$crud.create(this.configName, this.locale.form).then(response => {
-            this.$alert.success({message: `${this.$tr('ui.message.recordCreated')}`})
-            this.actionAfterCreated()
-          }).catch(error => {
-            this.$alert.error({message: this.$tr('ui.message.recordNoCreated'), pos: 'bottom'})
-            this.loading.page = false
-          })
-        } else {
-          this.$alert.error({message: this.$tr('ui.message.formInvalid'), pos: 'bottom'})
-        }
-      },
-      //Action after created
-      actionAfterCreated(id) {
-        setTimeout(() => {
-          let action = this.buttonActions.value
-          switch (action) {
-            case 1://redirect to index products
-              this.$router.push({name: 'qsubscription.admin.products.index'})
-              break;
-            case 3://Reset and init form
-              this.$refs.localeComponent.vReset()
-              this.loading.page = false
-              break;
-          }
-        }, 500)
-      },
-      //Update Product
-      async updateItem() {
-        if (await this.$refs.localeComponent.validateForm()) {
-          this.loading.page = true
-          this.$crud.update(this.configName, this.itemId, this.locale.form).then(response => {
-            this.$alert.success({message: `${this.$tr('ui.message.recordUpdated')}`})
-            this.$router.push({name: 'qsubscription.admin.products.index'})//Redirect to index
-            this.loading.page = false
-          }).catch(error => {
-            this.loading.page = false
-            this.$alert.error({message: this.$tr('ui.message.recordNoUpdated'), pos: 'bottom'})
-          })
-        } else {
-          this.$alert.error({message: this.$tr('ui.message.formInvalid'), pos: 'bottom'})
-        }
-      },
-      //Complete slug Only when is creation
-      setSlug () {
-        if (!this.productId) {
-          let title = this.$clone(this.locale.formTemplate.name)
-          title = title.split(' ').join('-').toLowerCase()
-          this.locale.formTemplate.slug = this.$clone(title.normalize('NFD').replace(/[\u0300-\u036f]/g, ''))
-        }
+         },
+         getPlans(key){
+            let params = {
+               refresh: true,
+               params: {
+                  include: '',
+                  filter:{
+                     productId: key
+                  }
+               }
+            }
+            //Request
+            this.$crud.index('apiRoutes.qsubscription.plans', params).then(response => {
+               this.planOptions = this.$array.select(response.data, {label: 'name', id: 'id'});
+            }).catch(error => {
+               this.$alert.error({message: this.$tr('ui.message.errorRequest'), pos: 'bottom'})
+               this.loading = false
+            })
+         }
       }
-    }
-  }
+   }
 </script>
 <style lang="stylus">
 </style>
