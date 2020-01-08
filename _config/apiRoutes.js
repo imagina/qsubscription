@@ -10,6 +10,6 @@ export default {
   features: `${urlBase}/features`,
   plans: `${urlBase}/plans`,
   products: `${urlBase}/products`,
-  suscriptions: `${urlBase}/suscriptions`,
+  subscriptions: `${urlBase}/subscriptions`,
   paymentMethods: `${urlBase}/payment-methods`,
 }

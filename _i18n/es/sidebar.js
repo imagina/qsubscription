@@ -4,6 +4,7 @@ export default {
   adminProductsCreate : 'Crear Producto',
   adminProductsUpdate : 'Actualizar Producto',
   adminFeatures : 'Características de Productos',
+  adminSubscription : 'Suscripciones',
   adminFeaturesCreate : 'Crear Característica',
   adminFeaturesUpdate : 'Actualizar Característica',
   adminPlans : 'Planes de Productos',

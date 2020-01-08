@@ -1,9 +1,9 @@
 export default {
 
   products: {
-    permission: 'suscriptions.products.manage',
+    permission: 'subscriptions.products.manage',
     activated: true,
-    path: '/suscriptions/products/index',
+    path: '/subscriptions/products/index',
     name: 'qsubscription.admin.products.index',
     page: () => import('@imagina/qsubscription/_layouts/admin/products/index'),
     layout: () => import('src/layouts/master'),
@@ -12,9 +12,9 @@ export default {
     authenticated: true
   },
     productsCreate: {
-    permission: 'suscriptions.products.create',
+    permission: 'subscriptions.products.create',
     activated: true,
-    path: '/suscriptions/products/create',
+    path: '/subscriptions/products/create',
     name: 'qsubscription.admin.products.create',
     page: () => import('@imagina/qsubscription/_layouts/admin/products/form'),
     layout: () => import('src/layouts/master'),
@@ -23,9 +23,9 @@ export default {
     authenticated: true
   },
   productsUpdate: {
-    permission: 'suscriptions.products.edit',
+    permission: 'subscriptions.products.edit',
     activated: true,
-    path: '/suscriptions/products/:id',
+    path: '/subscriptions/products/:id',
     name: 'qsubscription.admin.products.edit',
     page: () => import('@imagina/qsubscription/_layouts/admin/products/form'),
     layout: () => import('src/layouts/master'),
@@ -34,9 +34,9 @@ export default {
     authenticated: true
   },
   plans: {
-    permission: 'suscriptions.plans.manage',
+    permission: 'subscriptions.plans.manage',
     activated: true,
-    path: '/suscriptions/plans/index/:id',
+    path: '/subscriptions/plans/index/:id',
     name: 'qsubscription.admin.plans.index',
     page: () => import('@imagina/qsubscription/_layouts/admin/plans/index'),
     layout: () => import('src/layouts/master'),
@@ -45,9 +45,9 @@ export default {
     authenticated: true
   },
     plansCreate: {
-    permission: 'suscriptions.plans.create',
+    permission: 'subscriptions.plans.create',
     activated: true,
-    path: '/suscriptions/plans/create/:productId',
+    path: '/subscriptions/plans/create/:productId',
     name: 'qsubscription.admin.plans.create',
     page: () => import('@imagina/qsubscription/_layouts/admin/plans/form'),
     layout: () => import('src/layouts/master'),
@@ -56,9 +56,9 @@ export default {
     authenticated: true
   },
   plansUpdate: {
-    permission: 'suscriptions.plans.edit',
+    permission: 'subscriptions.plans.edit',
     activated: true,
-    path: '/suscriptions/plans/:id',
+    path: '/subscriptions/plans/:id',
     name: 'qsubscription.admin.plans.edit',
     page: () => import('@imagina/qsubscription/_layouts/admin/plans/form'),
     layout: () => import('src/layouts/master'),
@@ -67,9 +67,9 @@ export default {
     authenticated: true
   },
   features: {
-    permission: 'suscriptions.features.manage',
+    permission: 'subscriptions.features.manage',
     activated: true,
-    path: '/suscriptions/features/index/:id',
+    path: '/subscriptions/features/index/:id',
     name: 'qsubscription.admin.features.index',
     page: () => import('@imagina/qsubscription/_layouts/admin/features/index'),
     layout: () => import('src/layouts/master'),
@@ -78,9 +78,9 @@ export default {
     authenticated: true
   },
     featuresCreate: {
-    permission: 'suscriptions.features.create',
+    permission: 'subscriptions.features.create',
     activated: true,
-    path: '/suscriptions/features/create',
+    path: '/subscriptions/features/create',
     name: 'qsubscription.admin.features.create',
     page: () => import('@imagina/qsubscription/_layouts/admin/features/form'),
     layout: () => import('src/layouts/master'),
@@ -89,9 +89,9 @@ export default {
     authenticated: true
   },
   featuresUpdate: {
-    permission: 'suscriptions.features.edit',
+    permission: 'susbcriptions.features.edit',
     activated: true,
-    path: '/suscriptions/features/:id',
+    path: '/subscriptions/features/:id',
     name: 'qsubscription.admin.features.edit',
     page: () => import('@imagina/qsubscription/_layouts/admin/features/form'),
     layout: () => import('src/layouts/master'),
@@ -99,5 +99,26 @@ export default {
     icon: 'fas fa-map-marked-alt',
     authenticated: true
   },
-
+  subscriptions:{
+    permission: 'subscriptions.subscriptions.index',
+    activated: true,
+    path: '/subscriptions/subscription',
+    name: 'qsubscription.admin.subscription.index',
+    page: () => import('@imagina/qsubscription/_layouts/admin/subscriptions/index'),
+    layout: () => import('src/layouts/master'),
+    title: 'qsubscription.sidebar.adminSubscription',
+    icon: 'fas fa-file-invoice',
+    authenticated: true
+  },
+  subscriptionsUpdate:{
+    permission: 'subscriptions.subscriptions.edit',
+    activated: true,
+    path: '/subscriptions/subscription/:id',
+    name: 'qsubscription.admin.subscription.form',
+    page: () => import('@imagina/qsubscription/_layouts/admin/subscriptions/form'),
+    layout: () => import('src/layouts/master'),
+    title: 'qsubscription.sidebar.adminSubscription',
+    icon: 'fas fa-file-invoice',
+    authenticated: true
+  }
 }
