@@ -311,7 +311,7 @@ export default {
           quantity:this.quantity,
           payment_method_id:this.paymentMethodId
         };
-        this.$crud.create("apiRoutes.qsubscription.suscriptions",params).then(response => {
+        this.$crud.create("apiRoutes.qsubscription.subscriptions",params).then(response => {
 
           this.$alert.success({message: this.$tr('qsubscription.messages.success.createSubscription'), pos: 'bottom'});
 
