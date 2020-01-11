@@ -58,9 +58,11 @@
                            <div class="col text-truncate">
                               <div class="row">
                                  <div class="col-xs-12 col-md-2 col-xl-1 text-truncate">
-                                    <q-avatar color="red" text-color="white" icon="fas fa-times-circle"
-                                              v-if="!item.active"/>
-                                    <q-avatar color="positive" text-color="white" icon="fas fa-check-circle" v-else/>
+                                    <q-avatar color="positive" text-color="white" icon="fas fa-check-circle" v-if="item.active"/>
+                                    <q-avatar color="orange-10" text-color="white" icon="fas fa-hand-paper"
+                                              v-else-if="item.status==='2'"/>
+                                    <q-avatar v-else color="red" text-color="white" icon="fas fa-times-circle"
+                                    />
                                  </div>
                                  <div class="col-xs-12 col-md-10 col-xl-11 ">
                                     <div class="row"><span class="text-primary text-bold ">{{item.user.fullName}}</span>
@@ -92,7 +94,7 @@
                      >
                      </q-pagination>
                   </div>
-                  <div class="q-pa-lg flex flex-center" v-else><span class="text-primary text-h6 text-bold ">Notificaciones no encontradas</span>
+                  <div class="q-pa-lg flex flex-center" v-if="!subscriptions.length"><span class="text-primary text-h6 text-bold ">Notificaciones no encontradas</span>
                   </div>
                </q-card-section>
                <inner-loading :visible="loading"/>
@@ -122,10 +124,12 @@
             search: null,
             filter: {
                active: {label: 'Activas', value: 1},
+               status:1
             },
             optionsActive: [
                {label: 'Activas', value: 1},
                {label: 'Vencidas', value: 0},
+               {label: 'Pendientes', value: 2},
             ]
          }
       },
@@ -136,6 +140,10 @@
          //Get users with infinite scroll
          getSubscriptions() {
             let active = this.filter.active ? this.filter.active.value : null
+            if(active ===2){
+               active=null;
+               this.status=2
+            }
             let params = {
                remember: false,
                params: {
@@ -147,7 +155,7 @@
                         way: 'asc'
                      },
                     search: this.search,
-                     status: 1
+                     status: this.status
                   },
                   take: 12,
                   page: this.page ? this.page : 1

@@ -44,6 +44,19 @@ export default {
       calculateShipping:"Calcular Envío",
       processPurchase:"Procesar Compra",
 
+    },
+    paymentMethods:{
+      apiKey : 'Codigo API',
+      apiLogin : 'API Inicio de sesión',
+      transactionKey : 'Codigo de transacción',
+      clientKey : 'Codigo de cliente',
+      clientSecret : 'Codigo Secreto',
+      merchantId : 'ID Comerciante',
+      mode : 'Modo',
+      accountId : 'ID Cuenta',
+      allowTestCreditCard : 'Tarjeta de credito de prueba',
+      updatePaymentMethod : 'Actualizar metodo de pago',
     }
+    
   }
 }

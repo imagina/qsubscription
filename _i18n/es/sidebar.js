@@ -15,4 +15,5 @@ export default {
   checkout : 'Finalizar compra',
   shoppingCart : 'Carrito de compras',
   summaryOrder : 'Resumen de tu Pedido',
+  adminPaymentMethods:'Metodos de Pago'
 }

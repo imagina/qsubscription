@@ -1,6 +1,5 @@
 <template>
   <q-page class="page">
-
     <div class="bg-fondo q-px-sm q-py-xl">
       <div class="q-container">
         <div class="row justify-end">
@@ -32,33 +31,13 @@
                 <div class="row gutter-md justify-center">
                   <div class="col-12">
 
-                    <!-- <hr class="line-grey">
-                    <div class="text-primary q-subheading q-my-lg">
-                    <i class="fas fa-credit-card q-mr-md"></i>
-                        <strong>
-                          Paypal
-                        </strong>
-                    </div> -->
-                    <hr class="line-grey">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do ei.</span>
-
-                    <div class="q-my-xl">
-                      <span >
-                        <i class="fab fa-cc-mastercard q-mr-sm fa-4x"></i>
-                      </span>
-                      <span >
-                        <i class="fab fa-cc-visa q-mr-sm fa-4x"></i>
-                      </span>
-                      <span >
-                        <i class="fab fa-cc-diners-club q-mr-sm fa-4x"></i>
-                      </span>
-                      <span >
-                        <i class="fab fa-cc-amex q-mr-sm fa-4x"></i>
-                      </span>
+                    <div v-for="payMethod in paymentMethods" :key="payMethod.id">
+                        <img :src="payMethod.mainImage.path" style="height: 70px; max-width: 100%"/>
+                      <q-radio style="text-transform:capitalize;"  v-model="paymentMethodId" :val="payMethod.id" :label="$tr(payMethod.title)" />
+                      <hr class="line-grey q-my-md">
                     </div>
 
-                    <q-radio style="text-transform:capitalize;" v-for="payMethod in paymentMethods" v-model="paymentMethodId" :val="payMethod.id" :key="payMethod.id" :label="payMethod.name" />
-                    <hr class="line-grey q-my-md">
+
                     <!-- <q-radio v-model="paymentMethod" val="payu" label="PayU" />
                     <hr class="line-grey q-my-md">
                     <q-radio v-model="paymentMethod" val="contraentrega"  label="Contraentrega" />
@@ -353,7 +332,7 @@ export default {
             });
           }//update
 
-
+          this.$router.push({ name: 'qmarketplace.admin.subscriptions.mysubscriptions'});
 
         }).catch(error => {
           this.$alert.error({message: error, pos: 'bottom'})

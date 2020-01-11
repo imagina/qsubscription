@@ -98,5 +98,16 @@ export default {
     title: 'qsubscription.sidebar.adminSubscription',
     icon: 'fas fa-file-invoice',
     authenticated: true
-  }
+  },
+  paymentMethods: {
+    permission: 'subscriptions.paymentmethods.manage',
+    activated: true,
+    path: '/subscriptions/payment-methods',
+    name: 'qsubscription.admin.payment.methods',
+    page: () => import('@imagina/qsubscription/_layouts/admin/paymentMethods/index'),
+    layout: () => import('src/layouts/master'),
+    title: 'qsubscription.sidebar.adminPaymentMethods',
+    icon: 'fas fa-money-bill-wave',
+    authenticated: true,
+  },
 }
