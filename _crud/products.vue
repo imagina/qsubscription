@@ -8,7 +8,7 @@
       crudData() {
         return {
           apiRoute: 'apiRoutes.qsubscription.products',
-          permission: 'suscriptions.products',
+          permission: 'subscriptions.products',
           create: {
             title: this.$tr('qsubscription.layout.newProduct'),
              to : {name : 'qsubscription.admin.products.create', params : {}, query : {}}

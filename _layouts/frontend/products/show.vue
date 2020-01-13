@@ -190,7 +190,7 @@ export default {
         }//for
         if(businessRole){
           //Query axios
-          //If doesn't suscription active, redirect to plans
+          //If doesn't subscription active, redirect to plans
           $router.push({name: 'products.show',params:{slug:'tiendas-en-linea'}})
         }
       */

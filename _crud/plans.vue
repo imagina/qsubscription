@@ -8,7 +8,7 @@
       crudData() {
         return {
           apiRoute: 'apiRoutes.qsubscription.plans',
-          permission: 'suscriptions.plans',
+          permission: 'subscriptions.plans',
           create: {
             title: this.$tr('qsubscription.layout.newPlan'),
             to : {
